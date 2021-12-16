@@ -249,14 +249,14 @@ class EventsController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $activity = Event::query()->find($id);
+            if ($activity->delete()) {
+                return response()->json(['success' => 'success delete']);
+            }
+            return response()->json(['error' => 'failed delete']);
+        }
     }
 }

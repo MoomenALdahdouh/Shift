@@ -76,6 +76,7 @@ Route::group(
         Route::post('/update/{id}', [EventsController::class, 'update'])->name('events.update');
         Route::get('/users/{id}', [EventsController::class, 'eventUsers'])->name('events.users');
         Route::get('/show/{id}', [EventsController::class, 'show'])->name('events.show');
+        Route::delete('/delete/{id}', [EventsController::class, 'destroy'])->name('events.delete');
     });
 
     Route::prefix('halls')->group(function () {

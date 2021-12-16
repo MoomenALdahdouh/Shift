@@ -343,6 +343,23 @@ $(function () {
     function showEvent(calendar, info) {
         //console.log(info.event.id);
         var id = info.event.id;
+        $('#delete_event').click(function () {
+            $.ajax({
+                type: "DELETE",
+                url: "/events/delete/" + id,
+                data: {
+                    _token: $("input[name=_token]").val()
+                },
+                success: function (response) {
+                    if (response['success']) {
+                        $('#modal-update-event').modal('toggle');
+                        calendar.refetchEvents();
+                    } else if (response['error']) {
+
+                    }
+                }
+            });
+        });
         $('#modal-update-event').modal('show');
         /*Input*/
         let title_ar_input = $('#modal-update-event #title_ar');
@@ -399,6 +416,18 @@ $(function () {
                 photo_image_input.val(event.photo_image);
                 video_image_input.val(event.video_image);
                 event_external_link_input.val(event.url);
+                switch (event.type) {
+                    case 0:
+                        console.log(event.type);
+                        data_internal_type_update.hide();
+                        data_external_type_update.attr('style', 'display:block !important');
+                        break;
+                    case 1:
+                        console.log(event.type);
+                        data_internal_type_update.attr('style', 'display:block !important');
+                        data_external_type_update.hide();
+                        break;
+                }
                 /*Get event user data*/
                 $.ajax({
                     method: "get",

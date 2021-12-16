@@ -73,6 +73,8 @@ Route::group(
         Route::get('/', [EventsController::class, 'index'])->name('events');
         Route::get('/fetch', [EventsController::class, 'fetch'])->name('events.fetch');
         Route::post('/create', [EventsController::class, 'create'])->name('events.create');
+        Route::post('/update/{id}', [EventsController::class, 'update'])->name('events.update');
+        Route::get('/users/{id}', [EventsController::class, 'eventUsers'])->name('events.users');
         Route::get('/show/{id}', [EventsController::class, 'show'])->name('events.show');
     });
 

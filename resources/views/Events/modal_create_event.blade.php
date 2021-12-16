@@ -56,7 +56,7 @@
                                                         id="title_en" name="title_en" type="text"
                                                         placeholder="English Title (Required)">
                                                     <p id="title_en_error" class="text-danger"
-                                                    style="display: none"></p>
+                                                       style="display: none"></p>
                                                     <input
                                                         id="event_key" name="event_key" type="hidden"
                                                         placeholder="English Title (Required)">
@@ -419,7 +419,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' id="sponsors_image_upload"/>
+                                                                    <input type='file' name="file_img" id="sponsors_image_upload"
+                                                                           accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="sponsors_image_upload_error"
                                                                        class="text-danger"
                                                                        style="display: none"></p>
@@ -435,7 +436,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' id="details_image_upload"/>
+                                                                    <input type='file' id="details_image_upload" class="dropify"
+                                                                           accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="details_image_upload_error"
                                                                        class="text-danger"
                                                                        style="display: none"></p>
@@ -450,7 +452,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' id="photo_gallery_upload"/>
+                                                                    <input type='file' id="photo_gallery_upload" class="dropify"
+                                                                           accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="photo_gallery_upload_error"
                                                                        class="text-danger"
                                                                        style="display: none"></p>
@@ -465,7 +468,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' id="video_gallery_upload"/>
+                                                                    <input type='file' id="video_gallery_upload" class="dropify"
+                                                                           accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="video_gallery_upload_error"
                                                                        class="text-danger"
                                                                        style="display: none"></p>

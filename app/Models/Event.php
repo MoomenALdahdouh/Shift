@@ -18,6 +18,6 @@ class Event extends Model
 
     public function event_user()
     {
-        return $this->hasOne(EventUser::class, 'id', 'event_fk_id');
+        return $this->hasMany(EventUser::class, 'event_fk_id', 'id');
     }
 }

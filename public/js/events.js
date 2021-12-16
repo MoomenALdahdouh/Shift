@@ -19,6 +19,10 @@ $(function () {
     let calendar;
 
     $(document).ready(function () {
+        /*$('#sponsors-image-upload').on('change', function (ev) {
+            console.log(ev.target.result);
+        });*/
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -206,9 +210,20 @@ $(function () {
                 success: function (response) {
                     /*Reset values*/
                     if (response['error']) {
-                        printErrorMsg(response.error);
+                        eventDetailsErrorSwitchTab();
+                        printErrorMsg(response['error']);
+                    } else if (response['user_error']) {
+                        eventUserErrorSwitchTab();
+                        printErrorMsg(response['user_error']);
                     } else if (response['success']) {
                         title_ar_error.css('display', 'none');
+                        title_en_error.css('display', 'none');
+                        description_en_error.css('display', 'none');
+                        description_ar_error.css('display', 'none');
+                        organizer_ar_name_error.css('display', 'none');
+                        organizer_en_name_error.css('display', 'none');
+                        manager_ar_name_error.css('display', 'none');
+                        manager_en_name_error.css('display', 'none');
                         $('#successfully-modal').modal('show');
                         $('#title_en').val("");
                         $('#title_ar').val("");
@@ -258,22 +273,9 @@ $(function () {
                         details_image = "";
                         photo_image = "";
                         video_image = "";
-                        console.log(response['success']);
-                        console.log(response['event_fk_id']);
-                        console.log(response['event']);
                         $('#modal-add-event').modal('toggle');
                         calendar.refetchEvents();
                     }
-                    //prepareCalender();
-                    //calendarEl.calendar('removeEvents');
-                    /*if ($.isEmptyObject(data.error)) {
-                        title_ar_error.css('display', 'none');
-                        description_error.css('display', 'none');
-                        createForm(data.activity_fk_id, worker, subproject);
-
-                    } else {
-                        printErrorMsg(data.error);
-                    }*/
                 }
 
             });
@@ -285,18 +287,62 @@ $(function () {
                 } else {
                     title_ar_error.css('display', 'none');
                 }
-                /*if (msg['description']) {
-                    $('#description_error').html(msg['description']);
-                    description_error.css('display', 'block');
+                if (msg['title_en']) {
+                    title_en_error.html(msg['title_en']);
+                    title_en_error.css('display', 'block');
                 } else {
-                    description_error.css('display', 'none');
-                }*/
+                    title_en_error.css('display', 'none');
+                }
+                if (msg['description_ar']) {
+                    description_ar_error.html(msg['description_ar']);
+                    description_ar_error.css('display', 'block');
+                } else {
+                    description_ar_error.css('display', 'none');
+                }
+                if (msg['description_en']) {
+                    description_en_error.html(msg['description_en']);
+                    description_en_error.css('display', 'block');
+                } else {
+                    description_en_error.css('display', 'none');
+                }
+                if (msg['organizer_ar_name']) {
+                    managerErrorSwitchTab();
+                    organizer_ar_name_error.html(msg['organizer_ar_name']);
+                    organizer_ar_name_error.css('display', 'block');
+                } else {
+                    organizer_ar_name_error.css('display', 'none');
+                }
+                if (msg['organizer_en_name']) {
+                    managerErrorSwitchTab();
+                    organizer_en_name_error.html(msg['organizer_en_name']);
+                    organizer_en_name_error.css('display', 'block');
+                } else {
+                    organizer_en_name_error.css('display', 'none');
+                }
+                if (msg['manager_ar_name']) {
+                    orgnizerErrorSwitchTab();
+
+                    manager_ar_name_error.html(msg['manager_ar_name']);
+                    manager_ar_name_error.css('display', 'block');
+                } else {
+                    manager_ar_name_error.css('display', 'none');
+                }
+                if (msg['manager_en_name']) {
+                    orgnizerErrorSwitchTab();
+
+                    manager_en_name_error.html(msg['manager_en_name']);
+                    manager_en_name_error.css('display', 'block');
+                } else {
+                    manager_en_name_error.css('display', 'none');
+                }
             }
         });
     }
 
+
     function showEvent(calendar, info) {
-        console.log(info.event.id);
+        //console.log(info.event.id);
+        var id = info.event.id;
         $('#modal-update-event').modal('show');
         /*Input*/
         let title_ar_input = $('#modal-update-event #title_ar');
@@ -304,12 +350,14 @@ $(function () {
         let description_ar_input = $('#modal-update-event #description_ar');
         let description_en_input = $('#modal-update-event #description_en');
         let location_input = $('#modal-update-event #location');
-        let category_input = $('#modal-update-event #category_input');
+        let category_input = $('#modal-update-event #category');
         let start_input = $('#modal-update-event #start');
         let end_input = $('#modal-update-event #end');
         let event_type_input = $('#modal-update-event #event_type');
 
         let sponsors_image_input = $('#modal-update-event #sponsors-image');
+        let sponsors_image_input_upload = $('#modal-update-event #sponsors-image-upload');
+
         let details_image_input = $('#modal-update-event #details-image');
         let photo_image_input = $('#modal-update-event #photo-image');
         let video_image_input = $('#modal-update-event #video-image');
@@ -352,47 +400,33 @@ $(function () {
                 video_image_input.val(event.video_image);
                 event_external_link_input.val(event.url);
                 /*Get event user data*/
-                /*organizer_ar_name_input.val(event.event_user.name);
-                organizer_en_name_input.val(event.event_user.name);
-                organizer_phone_input.val(event.event_user.name);
-                organizer_email_input.val(event.event_user.name);
-                organizer_website_name_input.val(event.event_user.name);
-                organizer_website_url_input.val(event.event_user.name);
-                manager_ar_name_input.val(event.event_user.name);
-                manager_en_name_input.val(event.event_user.name);
-                manager_phone_input.val(event.event_user.phone);
-                manager_email_input.val(event.event_user.email);*/
-                /*  $.ajax({
-                      method: "get",
-                      url: "events/show/" + event.user,
-                      data: {
-                          _token: $("input[name=_token]").val(),
-                      },
-                      success: function (user) {
-
-
-
-                      }
-                  });*/
+                $.ajax({
+                    method: "get",
+                    url: "events/users/" + info.event.id,
+                    data: {
+                        _token: $("input[name=_token]").val(),
+                    },
+                    success: function (eventUsers) {
+                        $.each(eventUsers, function (i) {
+                            console.log(eventUsers[i]);
+                            if (eventUsers[i].type == 0) {
+                                organizer_ar_name_input.val(eventUsers[i].name);
+                                organizer_en_name_input.val(eventUsers[i].name);
+                                organizer_phone_input.val(eventUsers[i].name);
+                                organizer_email_input.val(eventUsers[i].name);
+                                organizer_website_name_input.val(eventUsers[i].name);
+                                organizer_website_url_input.val(eventUsers[i].name);
+                            } else {
+                                manager_ar_name_input.val(eventUsers[i].name);
+                                manager_en_name_input.val(eventUsers[i].name);
+                                manager_phone_input.val(eventUsers[i].phone);
+                                manager_email_input.val(eventUsers[i].email);
+                            }
+                        });
+                    }
+                });
             }
         });
-
-
-        /*event_external_link_input.val(info.event.event_external_link);
-        organizer_ar_name_input.val(info.event.event_user.name);
-        organizer_en_name_input.val(info.event.event_user.name);
-        organizer_phone_input.val(info.event.event_user.name);
-        organizer_email_input.val(info.event.event_user.name);
-        organizer_website_name_input.val(info.event.event_user.name);
-        organizer_website_url_input.val(info.event.event_user.name);
-        manager_ar_name_input.val(info.event.event_user.name);
-        manager_en_name_input.val(info.event.event_user.name);
-        manager_phone_input.val(info.event.event_user.phone);
-        manager_email_input.val(info.event.event_user.email);
-        sponsors_image_input.val(info.event.sponsors_image);
-        details_image_input.val(info.event.details_image);
-        photo_image_input.val(info.event.photo_image);
-        video_image_input.val(info.event.video_image);*/
 
         /*Errors*/
         let title_ar_error = $('#modal-update-event #title_ar_error');
@@ -429,6 +463,8 @@ $(function () {
             let event_end = end_input.val();
             let location = location_input.val();
             let category = category_input.val();
+            let event_key = title_en + title_ar + description_en + description_ar + event_start + event_end;
+            $('#event_key').val(event_key)
             event_type = event_type_input.val();
             let event_external_link = "";
             let organizer_ar_name = "";
@@ -469,10 +505,11 @@ $(function () {
             }
             $.ajax({
                 type: "POST",
-                url: "events/create",
+                url: "events/update/" + id,
                 data: {
                     _token: $("input[name=_token]").val(),
-                    action: "create",
+                    action: "update",
+                    event_key: event_key,
                     title_en: title_en,
                     title_ar: title_ar,
                     event_start: event_start,
@@ -482,6 +519,10 @@ $(function () {
                     location: location,
                     category: category,
                     event_type: event_type,
+                    sponsors_image: sponsors_image,
+                    details_image: details_image,
+                    photo_image: photo_image,
+                    video_image: video_image,
                     event_external_link: event_external_link,
                     organizer_ar_name: organizer_ar_name,
                     organizer_en_name: organizer_en_name,
@@ -493,17 +534,26 @@ $(function () {
                     manager_en_name: manager_en_name,
                     manager_phone: manager_phone,
                     manager_email: manager_email,
-                    sponsors_image: sponsors_image,
-                    details_image: details_image,
-                    photo_image: photo_image,
-                    video_image: video_image,
                 },
                 success: function (response) {
                     /*Reset values*/
                     if (response['error']) {
-                        printErrorMsg(response.error);
+                        eventUpdateDetailsErrorSwitchTab();
+                        printErrorMsg(response['error']);
+                    } else if (response['user_error']) {
+                        eventUpdateUserErrorSwitchTab();
+                        printErrorMsg(response['user_error']);
                     } else if (response['success']) {
                         title_ar_error.css('display', 'none');
+                        title_en_error.css('display', 'none');
+                        description_en_error.css('display', 'none');
+                        title_ar_error.css('display', 'none');
+                        description_ar_error.css('display', 'none');
+                        organizer_ar_name_error.css('display', 'none');
+                        organizer_en_name_error.css('display', 'none');
+                        manager_ar_name_error.css('display', 'none');
+                        manager_en_name_error.css('display', 'none');
+
                         $('#successfully-modal').modal('show');
                         title_en_input.val("");
                         title_ar_input.val("");
@@ -553,23 +603,9 @@ $(function () {
                         details_image = "";
                         photo_image = "";
                         video_image = "";
-                        console.log(response['success']);
-                        console.log(response['event_fk_id']);
-                        console.log(response['event']);
-                        $('#modal-add-event').modal('toggle');
+                        $('#modal-update-event').modal('toggle');
                         calendar.refetchEvents();
-
                     }
-                    //prepareCalender();
-                    //calendarEl.calendar('removeEvents');
-                    /*if ($.isEmptyObject(data.error)) {
-                        title_ar_error.css('display', 'none');
-                        description_error.css('display', 'none');
-                        createForm(data.activity_fk_id, worker, subproject);
-
-                    } else {
-                        printErrorMsg(data.error);
-                    }*/
                 }
 
             });
@@ -581,12 +617,52 @@ $(function () {
                 } else {
                     title_ar_error.css('display', 'none');
                 }
-                /*if (msg['description']) {
-                    $('#description_error').html(msg['description']);
-                    description_error.css('display', 'block');
+                if (msg['title_en']) {
+                    title_en_error.html(msg['title_en']);
+                    title_en_error.css('display', 'block');
                 } else {
-                    description_error.css('display', 'none');
-                }*/
+                    title_en_error.css('display', 'none');
+                }
+                if (msg['description_ar']) {
+                    description_ar_error.html(msg['description_ar']);
+                    description_ar_error.css('display', 'block');
+                } else {
+                    description_ar_error.css('display', 'none');
+                }
+                if (msg['description_en']) {
+                    description_en_error.html(msg['description_en']);
+                    description_en_error.css('display', 'block');
+                } else {
+                    description_en_error.css('display', 'none');
+                }
+                if (msg['organizer_ar_name']) {
+                    managerUpdateErrorSwitchTab();
+                    organizer_ar_name_error.html(msg['organizer_ar_name']);
+                    organizer_ar_name_error.css('display', 'block');
+                } else {
+                    organizer_ar_name_error.css('display', 'none');
+                }
+                if (msg['organizer_en_name']) {
+                    orgnizerUpdateErrorSwitchTab();
+                    organizer_en_name_error.html(msg['organizer_en_name']);
+                    organizer_en_name_error.css('display', 'block');
+                } else {
+                    organizer_en_name_error.css('display', 'none');
+                }
+                if (msg['manager_ar_name']) {
+                    orgnizerUpdateErrorSwitchTab();
+                    manager_ar_name_error.html(msg['manager_ar_name']);
+                    manager_ar_name_error.css('display', 'block');
+                } else {
+                    manager_ar_name_error.css('display', 'none');
+                }
+                if (msg['manager_en_name']) {
+                    managerUpdateErrorSwitchTab();
+                    manager_en_name_error.html(msg['manager_en_name']);
+                    manager_en_name_error.css('display', 'block');
+                } else {
+                    manager_en_name_error.css('display', 'none');
+                }
             }
         });
     }
@@ -635,6 +711,63 @@ $(function () {
         dayEndWeek = lastDay.toISOString().substring(0, 10);
         console.log(dayStartWeek)
         console.log(dayEndWeek)
+    }
+
+    function eventDetailsErrorSwitchTab() {
+        $("#step-1-tab").addClass("active show");  // this deactivates the home tab
+        $("#step-2-tab").removeClass("active show");
+        $("#home").addClass("active show");  // this deactivates the home tab
+        $("#profile").removeClass("active show");
+    }
+
+    function eventUserErrorSwitchTab() {
+        $("#step-1-tab").removeClass("active show");  // this deactivates the home tab
+        $("#step-2-tab").addClass("active show");
+        $("#home").removeClass("active show");  // this deactivates the home tab
+        $("#profile").addClass("active show");
+    }
+
+    function orgnizerErrorSwitchTab() {
+        $("#nav-organizer-tab").removeClass("active show");  // this deactivates the home tab
+        $("#nav-manager-tab").addClass("active show");
+        $("#nav-home").removeClass("active show");  // this deactivates the home tab
+        $("#nav-profile").addClass("active show");
+    }
+
+    function managerErrorSwitchTab() {
+        $("#nav-organizer-tab").addClass("active show");  // this deactivates the home tab
+        $("#nav-manager-tab").removeClass("active show");
+        $("#nav-home").addClass("active show");  // this deactivates the home tab
+        $("#nav-profile").removeClass("active show");
+    }
+
+    /*Edit event*/
+    function eventUpdateDetailsErrorSwitchTab() {
+        $("#modal-update-event #step-1-tab").addClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #step-2-tab").removeClass("active show");
+        $("#modal-update-event #home").addClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #profile").removeClass("active show");
+    }
+
+    function eventUpdateUserErrorSwitchTab() {
+        $("#modal-update-event #step-1-tab").removeClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #step-2-tab").addClass("active show");
+        $("#modal-update-event #home").removeClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #profile").addClass("active show");
+    }
+
+    function orgnizerUpdateErrorSwitchTab() {
+        $("#modal-update-event #nav-organizer-tab").removeClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #nav-manager-tab").addClass("active show");
+        $("#modal-update-event #nav-home").removeClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #nav-profile").addClass("active show");
+    }
+
+    function managerUpdateErrorSwitchTab() {
+        $("#modal-update-event #nav-organizer-tab").addClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #nav-manager-tab").removeClass("active show");
+        $("#modal-update-event #nav-home").addClass("active show");  // this deactivates the home tab
+        $("#modal-update-event #nav-profile").removeClass("active show");
     }
 
 });

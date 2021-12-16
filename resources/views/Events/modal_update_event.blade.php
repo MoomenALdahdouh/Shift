@@ -13,18 +13,21 @@
                     <ul class="nav nav-tabs mb-2" id="myTabUpdate" role="tablist">
                         <li id="step-1" class="nav-item" role="presentation">
                             <button class="nav-link active" id="step-1-tab" data-toggle="tab" data-target="#homeUpdate"
-                                    type="button" role="tab" aria-controls="homeUpdate" aria-selected="true">Event Information
+                                    type="button" role="tab" aria-controls="homeUpdate" aria-selected="true">Event
+                                Information
                             </button>
                         </li>
                         <li id="step-2" class="nav-item" role="presentation">
                             <button class="nav-link" id="step-2-tab" data-toggle="tab" data-target="#profileUpdate"
-                                    type="button" role="tab" aria-controls="profileUpdate" aria-selected="false">More details
+                                    type="button" role="tab" aria-controls="profileUpdate" aria-selected="false">More
+                                details
                             </button>
                         </li>
                     </ul>
                     {{csrf_field()}}
                     <div class="tab-content" id="myTabUpdateContent">
-                        <div class="tab-pane fade show active" id="homeUpdate" role="tabpanel" aria-labelledby="step-1-tab">
+                        <div class="tab-pane fade show active" id="homeUpdate" role="tabpanel"
+                             aria-labelledby="step-1-tab">
                             <div id="page-1">
                                 <div class="card">
                                     <div class="card-body">
@@ -111,8 +114,8 @@
                                                         <div class="form-group col-md-12"
                                                              style=" margin: 0; padding: 0">
                                                             <select class="form-control " id="category">
-                                                                <option>Category 11</option>
-                                                                <option>Category 2</option>
+                                                                <option value="0">Category 11</option>
+                                                                <option value="1">Category 2</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -200,8 +203,10 @@
                                                 <div class="card  text-dark">
                                                     <div class="card-body">
                                                         <nav>
-                                                            <div class="nav nav-tabs" id="nav-tab-update" role="tablist">
-                                                                <button class="nav-link active" id="nav-organizer-tab-update"
+                                                            <div class="nav nav-tabs" id="nav-tab-update"
+                                                                 role="tablist">
+                                                                <button class="nav-link active"
+                                                                        id="nav-organizer-tab-update"
                                                                         data-toggle="tab" data-target="#nav-home-update"
                                                                         type="button"
                                                                         role="tab" aria-controls="nav-home-update"
@@ -335,7 +340,8 @@
                                                                 </div>
 
                                                             </div>
-                                                            <div class="tab-pane fade" id="nav-profile-update" role="tabpanel"
+                                                            <div class="tab-pane fade" id="nav-profile-update"
+                                                                 role="tabpanel"
                                                                  aria-labelledby="nav-manager-tab-update">
                                                                 {{--Start manager--}}
                                                                 <div class="row">

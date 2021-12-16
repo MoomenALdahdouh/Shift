@@ -154,10 +154,10 @@ class EventsController extends Controller
                  $event->url = $request->event_external_link;
                  $event->updated_at = Carbon::now();*/
                 /*Upload images*/
-                /*$sponsors_image_upload = $request->file('sponsors_image_upload');
+                $sponsors_image_upload = $request->file('sponsors_image_upload');
                 $name_sponsors_image_upload = time() . '.' . $sponsors_image_upload->getClientOriginalName();
                 $request->desktop->move(public_path('uploadsevents'), $name_sponsors_image_upload);
-                $event->sponsors_image = $name_sponsors_image_upload;*/
+                $event->sponsors_image = $name_sponsors_image_upload;
                 /*$event->details_image = $request->details_image;
                 $event->photo_gallery = $request->photo_image;
                 $event->video_gallery = $request->video_image;*/

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CustomUsersController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\HallsController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -16,19 +18,17 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 */
 
 //بستخدم هاد الكود لو بدي احفظ اخر لغة كان فاتحها الشخص
-    Auth::routes();
-
+Auth::routes();
 
 
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ]
-    ], function(){ //...
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']
+    ], function () { //...
 
-    Route::group(['middleware'=>['guest']],function (){
-        Route::get('/', function()
-        {
+    Route::group(['middleware' => ['guest']], function () {
+        Route::get('/', function () {
             return view('auth.login');
         });
     });
@@ -54,21 +54,15 @@ Route::group(
 
     Route::get('pdf_getNotification', 'GetNotificatiosController@pdf');
 
-    Route::group(['middleware' => ['auth']], function() {
+    Route::group(['middleware' => ['auth']], function () {
 
-        Route::resource('roles','RoleController');
+        Route::resource('roles', 'RoleController');
 
-        Route::resource('users','UserController');
+        Route::resource('users', 'UserController');
 
     });
 
-    //TODO :: Moomen Route
-
-    Route::get('/home', function () {
-        return view('moom.home');
-    });
-
-
+    //TODO :: Start Moomen Route
     Route::prefix('events')->group(function () {
         Route::get('/', [EventsController::class, 'index'])->name('events');
         Route::get('/fetch', [EventsController::class, 'fetch'])->name('events.fetch');
@@ -80,29 +74,25 @@ Route::group(
     });
 
     Route::prefix('halls')->group(function () {
-        Route::get('/', [EventsController::class, 'index'])->name('halls');
+        Route::get('/', [HallsController::class, 'index'])->name('halls');
     });
 
     Route::prefix('agents')->group(function () {
-        Route::get('/', [EventsController::class, 'index'])->name('agents');
+        Route::get('/', [CustomUsersController::class, 'index'])->name('agents');
     });
 
     Route::prefix('partners')->group(function () {
-        Route::get('/', [EventsController::class, 'index'])->name('partners');
+        Route::get('/', [CustomUsersController::class, 'index'])->name('partners');
     });
 
     Route::prefix('managers')->group(function () {
-        Route::get('/', [EventsController::class, 'index'])->name('managers');
+        Route::get('/', [CustomUsersController::class, 'index'])->name('managers');
     });
 
     Route::prefix('providers')->group(function () {
-        Route::get('/', [EventsController::class, 'index'])->name('providers');
+        Route::get('/', [CustomUsersController::class, 'index'])->name('providers');
     });
-
-
-
-
-
+    //TODO :: End Moomen Route
 
 
 });
@@ -114,16 +104,16 @@ Route::group(
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {*/
 
-    /*Route::get('/', function()
-    {
-        return view('dashboard');
-    });*/
-    /*Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+/*Route::get('/', function()
+{
+    return view('dashboard');
+});*/
+/*Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 
-    Route::resource('slider', '\App\Http\Controllers\SliderController');
-    Route::resource('pages', '\App\Http\Controllers\PagesController');
-    Route::resource('SEO-Page', '\App\Http\Controllers\SeoController');
+Route::resource('slider', '\App\Http\Controllers\SliderController');
+Route::resource('pages', '\App\Http\Controllers\PagesController');
+Route::resource('SEO-Page', '\App\Http\Controllers\SeoController');
 
 
 });

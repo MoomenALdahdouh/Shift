@@ -53,16 +53,16 @@
                         </a>
                         <ul id="custom_users" class="collapse" data-parent="#sidebarnav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/' . $page='agents') }}"><i class="ti-menu-alt"></i>Agents</a>
+                                <a class="nav-link" href="{{ url('/' . $page='customusers/agents/0') }}"><i class="ti-menu-alt"></i>Agents</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/' . $page='partners') }}"><i class="ti-menu-alt"></i>Partners</a>
+                                <a class="nav-link" href="{{ url('/' . $page='customusers/partners/1') }}"><i class="ti-menu-alt"></i>Partners</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/' . $page='managers') }}"><i class="ti-menu-alt"></i>Managers</a>
+                                <a class="nav-link" href="{{ url('/' . $page='customusers/managers/2') }}"><i class="ti-menu-alt"></i>Managers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/' . $page='providers') }}"><i
+                                <a class="nav-link" href="{{ url('/' . $page='customusers/providers/3') }}"><i
                                         class="ti-menu-alt"></i>Providers</a>
                             </li>
                         </ul>

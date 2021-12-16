@@ -77,21 +77,25 @@ Route::group(
         Route::get('/', [HallsController::class, 'index'])->name('halls');
     });
 
-    Route::prefix('agents')->group(function () {
-        Route::get('/', [CustomUsersController::class, 'index'])->name('agents');
+    Route::prefix('customusers')->group(function () {
+        Route::get('/agents/{type}', [CustomUsersController::class, 'index'])->name('customusers.agents');
+        Route::get('/partners/{type}', [CustomUsersController::class, 'index'])->name('customusers.partners');
+        Route::get('/managers/{type}', [CustomUsersController::class, 'index'])->name('customusers.managers');
+        Route::get('/providers/{type}', [CustomUsersController::class, 'index'])->name('customusers.providers');
+        Route::get('/edit/{id}', [CustomUsersController::class, 'edit'])->name('customusers.edit');
     });
 
-    Route::prefix('partners')->group(function () {
-        Route::get('/', [CustomUsersController::class, 'index'])->name('partners');
+    /*Route::prefix('partners')->group(function () {
+        Route::get('/{type}', [CustomUsersController::class, 'index'])->name('partners');
     });
 
     Route::prefix('managers')->group(function () {
-        Route::get('/', [CustomUsersController::class, 'index'])->name('managers');
+        Route::get('/{type}', [CustomUsersController::class, 'index'])->name('managers');
     });
 
     Route::prefix('providers')->group(function () {
-        Route::get('/', [CustomUsersController::class, 'index'])->name('providers');
-    });
+        Route::get('/{type}', [CustomUsersController::class, 'index'])->name('providers');
+    });*/
     //TODO :: End Moomen Route
 
 

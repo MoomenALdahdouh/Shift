@@ -25,28 +25,34 @@
     <!-- row -->
     <div class="row">
         <div class="col-md-12 mb-30">
-            <div class="card card-statistics h-100">
+            <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
+            <button id="create_event" class="btn btn-primary mb-3">
+                Create Custom User
+            </button>
+            <div class="card card-statistics">
                 <div class="card-body">
+                    <input type="hidden" value="{{$page_type}}" id="page_type">
                     <div class="bg-white overflow-hidden shadow-xl ">
                         <div class="table-responsive" style="padding: 30px">
-                            <table id="users-table" class="table  table-hover table-sm table-bordered p-0"
+                            <table id="custom-users-table" class="table  table-hover table-sm table-bordered p-0"
                                    data-page-length="50"
                                    style="text-align: center">
                                 <thead>
                                 <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Sl No</th>
+                                    <th>Banner</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Created At</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                             </table>
                         </div>
                     </div>
                 </div>
+                <script src="{{ asset('js/custom_users.js') }}" defer></script>
             </div>
         </div>
     </div>

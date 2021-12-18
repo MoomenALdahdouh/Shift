@@ -83,7 +83,10 @@ Route::group(
         Route::get('/managers/{type}', [CustomUsersController::class, 'index'])->name('customusers.managers');
         Route::get('/providers/{type}', [CustomUsersController::class, 'index'])->name('customusers.providers');
         Route::get('/edit/{id}', [CustomUsersController::class, 'edit'])->name('customusers.edit');
-        Route::post('/update/{id}', [CustomUsersController::class, 'update'])->name('activities.update');
+        Route::post('/update/agents/{id}', [CustomUsersController::class, 'update_agents'])->name('activities.update_agents');
+        Route::post('/update/partners/{id}', [CustomUsersController::class, 'update_partners'])->name('activities.update_partners');
+        Route::post('/update/managers/{id}', [CustomUsersController::class, 'update_managers'])->name('activities.update_managers');
+        Route::post('/update/providers/{id}', [CustomUsersController::class, 'update_providers'])->name('activities.update_providers');
         Route::delete('/delete/{id}', [CustomUsersController::class, 'destroy'])->name('activities.update');
         Route::get('/create/agents', [CustomUsersController::class, 'create_agents'])->name('events.create.agents');
         Route::get('/create/partners', [CustomUsersController::class, 'create_partners'])->name('events.create.partners');

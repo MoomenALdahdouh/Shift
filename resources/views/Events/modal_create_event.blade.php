@@ -1,7 +1,7 @@
 <div id="modal-add-event" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">{{--modal-dialog-scrollable--}}
-        {{--{{--//TODO:: M*OOMEN S*. ALDAHDO*UH 12/15/2021--}}--}}
+        {{--{{--//TODO:: M*OOMEN S*. ALDAHDO*UH 12/15/2021--}}
         <div class="modal-content model-style">
             <div class="container pt-3">
                 <div class="modal-header mb-1">
@@ -421,7 +421,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' name="file_img" id="sponsors_image_upload"
+                                                                    <input type='file' name="file_img"
+                                                                           id="sponsors_image_upload"
                                                                            accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="sponsors_image_upload_error"
                                                                        class="text-danger"
@@ -438,7 +439,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' id="details_image_upload" class="dropify"
+                                                                    <input type='file' id="details_image_upload"
+                                                                           class="dropify"
                                                                            accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="details_image_upload_error"
                                                                        class="text-danger"
@@ -454,7 +456,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' id="photo_gallery_upload" class="dropify"
+                                                                    <input type='file' id="photo_gallery_upload"
+                                                                           class="dropify"
                                                                            accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="photo_gallery_upload_error"
                                                                        class="text-danger"
@@ -470,7 +473,8 @@
                                                                         <br>
 
                                                                     </div>
-                                                                    <input type='file' id="video_gallery_upload" class="dropify"
+                                                                    <input type='file' id="video_gallery_upload"
+                                                                           class="dropify"
                                                                            accept=".pdf,.jpg, .png, image/jpeg, image/png"/>
                                                                     <p id="video_gallery_upload_error"
                                                                        class="text-danger"

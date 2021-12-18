@@ -9,7 +9,9 @@ use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+
 /*{{--//TODO:: *** MOOMEN *S.* AL//DAHDOUH 12/13/2021--}}*/
+
 class CustomUsersController extends Controller
 {
 
@@ -172,26 +174,50 @@ class CustomUsersController extends Controller
 
 
     public
-    function update(Request $request, $id)
+    function update_agents(Request $request, $id)
     {
         if ($request->ajax()) {
             if ($request->action == "update") {
-                $update = CustomUser::query()->find($id);
-                $update->name = $request->name;
-                $update->phone = $request->phone;
-                $update->email = $request->email;
-                $update->status = $request->status;
-                $update->updated_at = Carbon::now();
-                $update->save();
-                /* $update = Activity::query()->find($id)->update([
-                     'name' => $request->name,
-                     'description' => $request->description,
-                     'status' => $request->status,
-                 ]);*/
-                if ($update)
-                    return response()->json(['success' => __('Save update succeeded')]);
-                else
-                    return response()->json(['error' => __('Save update failed, Please try again')]);
+                $validator = Validator::make($request->all(), [
+                    'banner' => 'required',
+                    'name_ar' => 'required:custom_users|max:255',
+                    'name_en' => 'required:custom_users|max:255',
+                    'country_ar' => 'required:custom_users|max:255',
+                    'country_en' => 'required:custom_users|max:255',
+                ], [
+                    'banner.required' => 'Agents Banner is required!',
+                    'name_ar.required' => 'Arabic agents name is required!',
+                    'name_en.required' => 'English agents name is required!',
+                    'country_ar.required' => 'Arabic country name is required!',
+                    'country_en.required' => 'English country name is required!',
+                ]);
+
+
+                if ($validator->passes()) {
+                    $data = CustomUser::query()->find($id);
+                    $banner = $request->banner;
+                    $data->banner = $banner;
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->country = ['en' => $request->country_en, 'ar' => $request->country_ar];
+                    $data->email = $request->email;
+                    $data->phone = $request->phone;
+                    $data->website_name = $request->website_name;
+                    $data->website_url = $request->website_url;
+                    $data->location = $request->location;
+                    $data->status = $request->status;
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    /* $update = Activity::query()->find($id)->update([
+                         'name' => $request->name,
+                         'description' => $request->description,
+                         'status' => $request->status,
+                     ]);*/
+                    if ($data)
+                        return response()->json(['success' => "Save update succeeded"]);
+                    else
+                        return response()->json(['error' => "Save update failed, Please try again"]);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
             }
         }
     }

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-{{--{{--//TODO:: MO//OMEN S. ALD//AHDOUH 12/15/2021--}}--}}
+    {{--{{--//TODO:: MO//OMEN S. ALD//AHDOUH 12/15/2021--}}
 @section('title')
     Halls
 @stop
@@ -58,4 +58,4 @@
 @section('js')
 
 @endsection
-{{--{{--//TODO:: MOOM/EN S. ALD//*AHDOUH 12/15/2021--}}--}}
+{{--{{--//TODO:: MOOM/EN S. ALD//*AHDOUH 12/15/2021--}}

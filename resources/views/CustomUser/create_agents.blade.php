@@ -40,14 +40,15 @@
                                     <li>
                                         <div>
                                             <div id="image_user_uploaded">
-
-                                                <img class="user-image" width="70" src="{{asset('uploadcustomuser/1639865270.jpg')}}">
+                                                <!-- uploadcustomuser/1639865270.jpg      -->
+                                                <img class="user-image" width="70"
+                                                     src="{{asset("images/user.png")}}">
                                             </div>
                                             <br>
                                             <p>agent banner ratio 2:1 (.jpeg, .png, .jpg)</p>
                                             <form class="hidden-image-upload">
                                                 {{csrf_field()}}
-                                                <input  name="_token" type="hidden"
+                                                <input name="_token" type="hidden"
                                                        value="5lgtt8AgbeF3lprptj8HNXVPceRhoJbqBeErBI1k">
                                                 <input class="" id="banner" name="banner" type="file"
                                                        value="Agent Banner"

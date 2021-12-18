@@ -4,6 +4,10 @@ $(function () {
     $(document).ready(function () {
         $("#name_ar").focus();
         create_user();
+        upload_image();
+    });
+
+    function upload_image() {
         $('#banner').on('change', function (ev) {
             console.log("here inside");
             var filedata = ev.target.files[0];
@@ -53,7 +57,7 @@ $(function () {
                 }
             }
         });
-    });
+    }
 
     function create_user() {
         const banner_error = $('#banner_error');
@@ -123,7 +127,8 @@ $(function () {
                     }
                 }
             });
-/*{{--//TODO:: -- MOOMEN S. ALDAH/DOUH -- 12/10/2021--}}*/
+
+            /*{{--//TODO:: -- MOOMEN S. ALDAH/DOUH -- 12/10/2021--}}*/
             function printErrorMsg(msg) {
                 if (msg['banner']) {
                     banner_error.html(msg['banner']);

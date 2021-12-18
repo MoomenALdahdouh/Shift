@@ -42,7 +42,8 @@ $(function () {
             delete_user(user_id)
         });
     })
-/*{{--//TODO:: MOOM**EN S. ALDA**HDOUH 12/15/2021--}}*/
+
+    /*{{--//TODO:: MOOM**EN S. ALDA**HDOUH 12/15/2021--}}*/
     function get_users() {
         var url = "/customusers/agents/0";
         switch (user_type) {

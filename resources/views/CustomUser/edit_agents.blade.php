@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-{{--{{--//TODO:: MOOM*EN S. ALDAHDO*UH 12/15/2021--}}--}}
+    {{--{{--//TODO:: MOOM*EN S. ALDAHDO*UH 12/15/2021--}}
 @section('title')
     Edit Agent
 @stop
@@ -29,95 +29,133 @@
             <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
             <div class="card card-statistics">
                 <div class="card-body">
-                    {{--User details header--}}
-                    <div class="card">
-                        <div class="card-body">
-                            <strong><i class="far fa-caret-square-right"></i> Agent details</strong>
-                            <div class="row mt-4">
-                                <div class="col-1 ">
-                                    <img class="user-image" width="60" src="{{asset('images/user.png')}}">
-                                </div>
-                                <div class="col-11 p-0">
-                                    <h5 class="name mt-2">{{$customuser->name}}</h5>
-                                    @switch($customuser->status)
-                                        @case (0)
-                                        <p class="paragraph-pended shadow">Pended</p>
-                                        @break
-                                        @case(1)
-                                        <p class="paragraph-active shadow">Active</p>
-                                        @break
-                                    @endswitch
-                                </div>
-                            </div>
-                            <br>
-                            <div class="alert-light">
-                                <div class="alert alert-secondary">
-                                    <strong><i class="las la-user-tie text-primary"></i>Email
-                                    </strong>
-                                    <br>
-                                    <p>{{$customuser->email}}</p>
-                                    <br>
-                                    <strong><i class="las la-phone text-primary"></i>Phone
-                                    </strong>
-                                    <br>
-                                    @if($customuser->phone==''||$customuser->phone==NULL)
-                                        <p>Phone</p>
-                                    @else
-                                        <p>{{@$customuser->phone}}</p>
-                                    @endif
-                                    <br>
-                                    <div class="">
-                                        <strong><i
-                                                class="las la-calendar-check text-primary"></i>Created
-                                            At
-                                        </strong>
-                                        <br>
-                                        <p>{{$customuser->created_at}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{--User edit--}}
-                    <br id="edit-user">
                     <div class="mt-3">
                         <div class="card-header alert alert-light">
-                            <strong><i class="far fa-caret-square-right"></i> Edit Agent</strong>
+                            <strong><i class="far fa-caret-square-right"></i> Agent Details</strong>
                             <div class="mt-4">
                                 <ul class="ul-project" style="list-style-type: none; margin: 0; padding: 0">
                                     <li>
-                                        <input type="hidden" id="user-id" name="user-id"
-                                               value="{{$customuser->id}}">
-                                        <div class="">
-                                            <div>
-                                                <h4><i
-                                                        class="las la-signature text-primary"></i>Name
-                                                </h4>
+                                        <input type="hidden" id="user-id" name="user-id" value="{{$customuser->id}}">
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div>
+                                            <div id="image_user_uploaded">
+                                                <!-- uploadcustomuser/1639865270.jpg      -->
+                                                <img class="user-image" width="70"
+                                                     src="{{asset("uploadcustomuser/$customuser->banner")}}">
                                             </div>
-                                            <input
-                                                class="form-control"
-                                                id="name" type="text" value="{{$customuser->name}}">
+                                            <br>
+                                            <p>agent banner ratio 2:1 (.jpeg, .png, .jpg)</p>
+                                            <form class="hidden-image-upload">
+                                                {{csrf_field()}}
+                                                <input name="_token" type="hidden"
+                                                       value="5lgtt8AgbeF3lprptj8HNXVPceRhoJbqBeErBI1k">
+                                                <input id="old_banner" name="old_banner" type="hidden"
+                                                       value="{{$customuser->banner}}">
+                                                <input class="" id="banner" name="banner" type="file"
+                                                       accept="image/png, image/jpeg, image/jpg">
+                                                <p id="banner_error" class="text-danger"
+                                                   style="display: none"></p>
+                                            </form>
+
                                         </div>
                                         <br>
-                                        <div class="">
-                                            <div>
-                                                <h4>
-                                                    <i class="las la-phone text-primary"></i>Email
-                                                </h4>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <h6><strong class="text-danger">*</strong> Name Arabic</h6>
+                                                </div>
+                                                <input class="form-control" id="name_ar" type="text"
+                                                       value="{{$customuser->name}}">
+                                                <p id="name_ar_error" class="text-danger"
+                                                   style="display: none"></p>
                                             </div>
-                                            <input
-                                                class="form-control"
-                                                id="email" type="text" value="{{$customuser->email}}">
-                                        </div><br>
-                                        <div class="">
-                                            <div>
-                                                <h4>
-                                                    <i class="las la-phone text-primary"></i>Phone
-                                                </h4>
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <h6><strong class="text-danger">*</strong> Name English</h6>
+                                                </div>
+                                                <input class="form-control" id="name_en" type="text"
+                                                       value="{{$customuser->name}}">
+                                                <p id="name_en_error" class="text-danger"
+                                                   style="display: none"></p>
                                             </div>
-                                            <input
-                                                class="form-control"
-                                                id="phone" type="text" value="{{$customuser->phone}}">
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <h6><strong class="text-danger">*</strong> Country Arabic</h6>
+                                                </div>
+                                                <input class="form-control" id="country_ar" type="text"
+                                                       value="{{$customuser->country}}">
+                                                <p id="country_ar_error" class="text-danger"
+                                                   style="display: none"></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <h6><strong class="text-danger">*</strong> Country English</h6>
+                                                </div>
+                                                <input class="form-control" id="country_en" type="text"
+                                                       value="{{$customuser->country}}">
+                                                <p id="country_en_error" class="text-danger"
+                                                   style="display: none"></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div>
+                                            <div>
+                                                <h6>Email (optional)</h6>
+                                            </div>
+                                            <input class="form-control" id="email" type="email"
+                                                   value="{{$customuser->email}}">
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div>
+                                            <div>
+                                                <h6>Phone (optional)</h6>
+                                            </div>
+                                            <input class="form-control" id="phone" type="text"
+                                                   value="{{$customuser->phone}}">
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div>
+                                            <div>
+                                                <h6>Website name (optional)</h6>
+                                            </div>
+                                            <input class="form-control" id="website_name" type="text"
+                                                   value="{{$customuser->website_name}}">
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div>
+                                            <div>
+                                                <h6>Website URL (optional)</h6>
+                                            </div>
+                                            <input class="form-control" id="website_url" type="url"
+                                                   value="{{$customuser->website_url}}">
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <div>
+                                            <div>
+                                                <h6>Location (optional)</h6>
+                                            </div>
+                                            <input class="form-control" id="location" type="text"
+                                                   value="{{$customuser->location}}">
                                         </div>
                                     </li>
                                     <br>
@@ -145,7 +183,6 @@
                                 </ul>
                             </div>
                         </div>
-
                     </div>
                     <br>
                     <br>
@@ -182,4 +219,4 @@
 @section('js')
     <script src="{{asset('js/edit_agents.js')}}" defer></script> {{--Must add defer to active js file--}}
 @endsection
-{{--{{--//TODO:: M*OOMEN S*. ALDAHDO*UH 12/15/2021--}}--}}
+{{--{{--//TODO:: M*OOMEN S*. ALDAHDO*UH 12/15/2021--}}

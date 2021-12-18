@@ -681,6 +681,6 @@
 
     @include('layouts.footer-scripts')
 
-</body>
 
+</body>
 </html>

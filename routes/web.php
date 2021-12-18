@@ -93,6 +93,7 @@ Route::group(
         Route::post('/store/partners', [CustomUsersController::class, 'store_partners'])->name('events.store.partners');
         Route::post('/store/managers', [CustomUsersController::class, 'store_managers'])->name('events.store.managers');
         Route::post('/store/providers', [CustomUsersController::class, 'store_providers'])->name('events.store.providers');
+        Route::post('/upload/image', [CustomUsersController::class, 'upload_image'])->name('events.upload_image');
     });
 
     /*Route::prefix('partners')->group(function () {

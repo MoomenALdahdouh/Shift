@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-
+{{--{{--//TODO:: MOOME**N S. A**LDAHDOUH 12/15/2021--}}--}}
 @section('title')
     @switch($user_type)
         @case(0)
@@ -85,12 +85,13 @@
                         </div>
                     </div>
                 </div>
-                <script src="{{ asset('js/custom_users.js') }}" defer></script>
+
             </div>
         </div>
     </div>
     <!-- row closed -->
 @endsection
 @section('js')
-
+    <script src="{{ asset('js/custom_users.js') }}" defer></script>
 @endsection
+{{--{{--//TODO:: MOOME*N S. ALDAH*DOUH 12/15/2021--}}--}}

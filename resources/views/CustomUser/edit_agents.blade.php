@@ -1,17 +1,16 @@
 @extends('layouts.master')
 @section('css')
-
+{{--{{--//TODO:: MOOM*EN S. ALDAHDO*UH 12/15/2021--}}--}}
 @section('title')
-    Edit Agents
+    Edit Agent
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
     <div class="page-title">
-        <br>
         <div class="row">
             <div class="col-sm-6">
-                <h1 class="fs-1">EDIT AGENTS</h1>
+                <!--                <h1 class="fs-1">EDIT AGENTS</h1>-->
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
@@ -20,7 +19,6 @@
                 </ol>
             </div>
         </div>
-        <br>
     </div>
     <!-- breadcrumb -->
 @endsection
@@ -34,7 +32,7 @@
                     {{--User details header--}}
                     <div class="card">
                         <div class="card-body">
-                            <strong><i class="far fa-caret-square-right"></i> Agents details</strong>
+                            <strong><i class="far fa-caret-square-right"></i> Agent details</strong>
                             <div class="row mt-4">
                                 <div class="col-1 ">
                                     <img class="user-image" width="60" src="{{asset('images/user.png')}}">
@@ -84,7 +82,7 @@
                     <br id="edit-user">
                     <div class="mt-3">
                         <div class="card-header alert alert-light">
-                            <strong><i class="far fa-caret-square-right"></i> Edit Agents</strong>
+                            <strong><i class="far fa-caret-square-right"></i> Edit Agent</strong>
                             <div class="mt-4">
                                 <ul class="ul-project" style="list-style-type: none; margin: 0; padding: 0">
                                     <li>
@@ -104,19 +102,22 @@
                                         <div class="">
                                             <div>
                                                 <h4>
+                                                    <i class="las la-phone text-primary"></i>Email
+                                                </h4>
+                                            </div>
+                                            <input
+                                                class="form-control"
+                                                id="email" type="text" value="{{$customuser->email}}">
+                                        </div><br>
+                                        <div class="">
+                                            <div>
+                                                <h4>
                                                     <i class="las la-phone text-primary"></i>Phone
                                                 </h4>
                                             </div>
-                                            @if ($customuser->phone === '' || $customuser->phone === NULL)
-                                                <input
-                                                    class="form-control"
-                                                    id="phone" type="text"
-                                                    value="{{__('strings.no_phone')}}">
-                                            @else
-                                                <input
-                                                    class="form-control"
-                                                    id="phone" type="text" value="{{$customuser->phone}}">
-                                            @endif
+                                            <input
+                                                class="form-control"
+                                                id="phone" type="text" value="{{$customuser->phone}}">
                                         </div>
                                     </li>
                                     <br>
@@ -173,12 +174,12 @@
                 </div>
 
                 @include('moom.modal_alert')
-                <script src="{{asset('js/edit_agents.js')}}" defer></script> {{--Must add defer to active js file--}}
             </div>
         </div>
     </div>
     <!-- row closed -->
 @endsection
 @section('js')
-
+    <script src="{{asset('js/edit_agents.js')}}" defer></script> {{--Must add defer to active js file--}}
 @endsection
+{{--{{--//TODO:: M*OOMEN S*. ALDAHDO*UH 12/15/2021--}}--}}

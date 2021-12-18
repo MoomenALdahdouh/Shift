@@ -36,7 +36,7 @@
                         </ul>
                     </li>
                     <!-- menu item todo-->
-                    <!--TODO::START MOOEMN ALDAHDOUH ROUTE -->
+                    <!--TODO::START MOOEMN ALDAH*DOUH ROUTE -->
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ url('/' . $page='events') }}"><i class="far fa-calendar-alt"></i>Events</a>
                     </li>

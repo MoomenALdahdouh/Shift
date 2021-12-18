@@ -8,6 +8,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Event extends Model
 {
+    /*{{--//TODO:: *MOOM*EN S*. ALDAH*DOUH 12/15/2021--}}*/
     //use HasFactory;
     // use HasTranslations;
 

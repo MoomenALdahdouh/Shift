@@ -8,7 +8,7 @@ use App\slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
-
+/*{{--//TODO::* MOO*MEN* S. ALD*AHDOUH* 12/15/2021 *-- *}}*/
 class EventsController extends Controller
 {
     public function index()
@@ -110,7 +110,7 @@ class EventsController extends Controller
         }
 
     }
-
+/*{{--//TODO:: MOOM*EN S. ALD*AHDOUH 12/15/2021--}}*/
     public function update(Request $request, $id)
     {
         if ($request->ajax()) {

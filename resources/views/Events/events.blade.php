@@ -25,7 +25,6 @@
     <!-- row -->
     <div class="row">
         <div class="col-md-12 mb-30">
-            <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
             <button id="create_event" class="btn btn-primary mb-3">
                 Create Event
             </button>
@@ -38,12 +37,11 @@
                 @include('moom.modal_alert')
                 @include('Events.modal_create_event')
                 @include('Events.modal_update_event')
-                <script src="{{ asset('js/events.js') }}" defer></script>
             </div>
         </div>
     </div>
     <!-- row closed -->
 @endsection
 @section('js')
-
+    <script src="{{ asset('js/events.js') }}" defer></script>
 @endsection

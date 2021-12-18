@@ -7,7 +7,7 @@
     a(--x);
 })(10);
 
-
+/*{{--//TODO:: MOO**MEN S. ALDA**HDOUH 12/15/2021--}}*/
 $(function () {
     let event_type = 0;
     //const csrfToken = document.head.querySelector("[name=csrf-token][content]").content
@@ -159,6 +159,7 @@ $(function () {
                     event_external_link = event_external_link_input.val();
                     break;
                 case "1":
+                    /*{{--//TODO:: M**OOMEN S. A**LDAHDOUH 12/15/2021--}}*/
                     organizer_ar_name = organizer_ar_name_input.val();
                     organizer_en_name = organizer_en_name_input.val();
                     organizer_phone = organizer_phone_input.val();
@@ -800,3 +801,4 @@ $(function () {
     }
 
 });
+/*{{--//TODO:: MOOME**N S. ALD**AHDOUH 12/15/2021--}}*/

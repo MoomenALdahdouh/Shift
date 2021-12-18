@@ -83,6 +83,16 @@ Route::group(
         Route::get('/managers/{type}', [CustomUsersController::class, 'index'])->name('customusers.managers');
         Route::get('/providers/{type}', [CustomUsersController::class, 'index'])->name('customusers.providers');
         Route::get('/edit/{id}', [CustomUsersController::class, 'edit'])->name('customusers.edit');
+        Route::post('/update/{id}', [CustomUsersController::class, 'update'])->name('activities.update');
+        Route::delete('/delete/{id}', [CustomUsersController::class, 'destroy'])->name('activities.update');
+        Route::get('/create/agents', [CustomUsersController::class, 'create_agents'])->name('events.create.agents');
+        Route::get('/create/partners', [CustomUsersController::class, 'create_partners'])->name('events.create.partners');
+        Route::get('/create/managers', [CustomUsersController::class, 'create_managers'])->name('events.create.managers');
+        Route::get('/create/providers', [CustomUsersController::class, 'create_providers'])->name('events.create.providers');
+        Route::post('/store/agents', [CustomUsersController::class, 'store_agents'])->name('events.store.agents');
+        Route::post('/store/partners', [CustomUsersController::class, 'store_partners'])->name('events.store.partners');
+        Route::post('/store/managers', [CustomUsersController::class, 'store_managers'])->name('events.store.managers');
+        Route::post('/store/providers', [CustomUsersController::class, 'store_providers'])->name('events.store.providers');
     });
 
     /*Route::prefix('partners')->group(function () {

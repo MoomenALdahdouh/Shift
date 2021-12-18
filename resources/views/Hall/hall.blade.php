@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-    empty
+    Halls
 @stop
 @endsection
 @section('page-header')

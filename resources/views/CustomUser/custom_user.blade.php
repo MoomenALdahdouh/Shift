@@ -2,7 +2,20 @@
 @section('css')
 
 @section('title')
-    Custom Users
+    @switch($user_type)
+        @case(0)
+        Agents
+        @break
+        @case (1)
+        Partners
+        @break
+        @case (2)
+        Managers
+        @break
+        @case (3)
+        Providers
+        @break
+    @endswitch
 @stop
 @endsection
 @section('page-header')
@@ -26,12 +39,31 @@
     <div class="row">
         <div class="col-md-12 mb-30">
             <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
-            <button id="create_event" class="btn btn-primary mb-3">
-                Create Custom User
-            </button>
+            @switch($user_type)
+                @case(0)
+                <button id="create_agents" class="btn btn-primary mb-3">
+                    Create Agents
+                </button>
+                @break
+                @case (1)
+                <button id="create_partners" class="btn btn-primary mb-3">
+                    Create Partners
+                </button>
+                @break
+                @case (2)
+                <button id="create_managers" class="btn btn-primary mb-3">
+                    Create Managers
+                </button>
+                @break
+                @case (3)
+                <button id="create_providers" class="btn btn-primary mb-3">
+                    Create Providers
+                </button>
+                @break
+            @endswitch
             <div class="card card-statistics">
                 <div class="card-body">
-                    <input type="hidden" value="{{$page_type}}" id="page_type">
+                    <input type="hidden" value="{{$user_type}}" id="user_type">
                     <div class="bg-white overflow-hidden shadow-xl ">
                         <div class="table-responsive" style="padding: 30px">
                             <table id="custom-users-table" class="table  table-hover table-sm table-bordered p-0"
@@ -43,6 +75,7 @@
                                     <th>Banner</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Phone</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Actions</th>

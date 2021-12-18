@@ -1,7 +1,7 @@
 /*start Project Setting and edit*/
 $(function () {
     const table = $('#custom-users-table');
-    const page_type = $('#page_type').val();
+    const user_type = $('#user_type').val();
     let removed = false;
     $(document).ready(function () {
         get_users();
@@ -20,6 +20,20 @@ $(function () {
         $(document).on('click', '#delete', function () {
             var id = $(this).data('id');
             delete_user(id);
+        });
+
+        /*Create custom user*/
+        $(document).on('click', '#create_agents', function () {
+            location.href = "/customusers/create/agents";
+        });
+        $(document).on('click', '#create_partners', function () {
+            location.href = "/customusers/create/partners";
+        });
+        $(document).on('click', '#create_managers', function () {
+            location.href = "/customusers/create/managers";
+        });
+        $(document).on('click', '#create_providers', function () {
+            location.href = "/customusers/create/providers";
         });
 
         /*Project settings*/
@@ -83,19 +97,19 @@ $(function () {
 
     function get_users() {
         var url = "/customusers/agents/0";
-        switch (page_type) {
+        switch (user_type) {
             case "0":
                 console.log(url);
-                url = "/customusers/agents/" + page_type;
+                url = "/customusers/agents/" + user_type;
                 break;
             case "1":
-                url = "/customusers/partners/" + page_type;
+                url = "/customusers/partners/" + user_type;
                 break;
             case "2":
-                url = "/customusers/managers/" + page_type;
+                url = "/customusers/managers/" + user_type;
                 break;
             case "3":
-                url = "/customusers/providers/" + page_type;
+                url = "/customusers/providers/" + user_type;
                 break;
 
         }
@@ -117,6 +131,9 @@ $(function () {
                 }, {
                     data: 'email',
                     name: 'email',
+                }, {
+                    data: 'phone',
+                    name: 'phone',
                 }, {
                     data: 'created_at',
                     name: 'created_at',

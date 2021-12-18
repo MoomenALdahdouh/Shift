@@ -2,27 +2,16 @@
 @section('css')
 
 @section('title')
-    @switch($customuser->type)
-        @case(0)
-        Edit Agents
-        @break
-        @case (1)
-        Edit
-        @break
-        @case (2)
-        Edit
-        @break
-        @case (3)
-        Edit
-        @break
-    @endswitch
+    Edit Agents
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
     <div class="page-title">
+        <br>
         <div class="row">
             <div class="col-sm-6">
+                <h1 class="fs-1">EDIT AGENTS</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
@@ -31,6 +20,7 @@
                 </ol>
             </div>
         </div>
+        <br>
     </div>
     <!-- breadcrumb -->
 @endsection
@@ -44,13 +34,14 @@
                     {{--User details header--}}
                     <div class="card">
                         <div class="card-body">
+                            <strong><i class="far fa-caret-square-right"></i> Agents details</strong>
                             <div class="row mt-4">
-                                <div class="col-1">
+                                <div class="col-1 ">
                                     <img class="user-image" width="60" src="{{asset('images/user.png')}}">
                                 </div>
-                                <div class="col-11">
+                                <div class="col-11 p-0">
                                     <h5 class="name mt-2">{{$customuser->name}}</h5>
-                                    @switch($customuser->staus)
+                                    @switch($customuser->status)
                                         @case (0)
                                         <p class="paragraph-pended shadow">Pended</p>
                                         @break
@@ -59,7 +50,6 @@
                                         @break
                                     @endswitch
                                 </div>
-
                             </div>
                             <br>
                             <div class="alert-light">
@@ -67,15 +57,15 @@
                                     <strong><i class="las la-user-tie text-primary"></i>Email
                                     </strong>
                                     <br>
-                                    <p> &nbsp &nbsp {{$customuser->email}}</p>
+                                    <p>{{$customuser->email}}</p>
                                     <br>
                                     <strong><i class="las la-phone text-primary"></i>Phone
                                     </strong>
                                     <br>
                                     @if($customuser->phone==''||$customuser->phone==NULL)
-                                        <p> &nbsp; &nbsp; Phone</p>
+                                        <p>Phone</p>
                                     @else
-                                        <p> &nbsp; &nbsp; {{@$customuser->phone}}</p>
+                                        <p>{{@$customuser->phone}}</p>
                                     @endif
                                     <br>
                                     <div class="">
@@ -84,7 +74,7 @@
                                             At
                                         </strong>
                                         <br>
-                                        <p>&nbsp; &nbsp; {{$customuser->created_at}}</p>
+                                        <p>{{$customuser->created_at}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -94,8 +84,8 @@
                     <br id="edit-user">
                     <div class="mt-3">
                         <div class="card-header alert alert-light">
-                            <h1><i class="las la-pen-square "></i>Edit Section</h1>
-                            <div class="mt-5">
+                            <strong><i class="far fa-caret-square-right"></i> Edit Agents</strong>
+                            <div class="mt-4">
                                 <ul class="ul-project" style="list-style-type: none; margin: 0; padding: 0">
                                     <li>
                                         <input type="hidden" id="user-id" name="user-id"
@@ -137,18 +127,17 @@
                                             </h4>
                                         </div>
                                         <div class="form-check form-switch" style="padding: 0;margin: 0">
-                                            <input data-id="{{$customuser->id}}" class="toggle-class" type="checkbox"
+                                            <input id="status" class="toggle-class" type="checkbox"
                                                    data-onstyle="success"
                                                    data-offstyle="danger" data-toggle="toggle" data-on="Active"
                                                    data-off="Inactive" data-size="xs"
-                                                {{$customuser->status ? 'checked' : ''}}
-                                            >
+                                                {{$customuser->status ? 'checked' : ''}}>
                                         </div>
                                     </li>
                                     <br>
                                     <br>
                                     <li>
-                                        <button id="update-user" class="btn btn-primary float-right"><i
+                                        <button id="update-agents" class="btn btn-primary float-right"><i
                                                 class="lar la-save"></i> Save
                                         </button>
                                     </li>
@@ -166,12 +155,13 @@
                                 <div class="row alert alert-danger text-dark"
                                      style=" margin: 0; padding-left:0; padding-right: 0">
                                     <div class="col-md-10">
-                                        <strong class="pt-2"><i class="las la-trash"></i>&nbsp; Remove this User!
-                                        </strong>
+                                        <p class="pt-2"><i class="fas fa-exclamation-triangle"></i>&nbsp;
+                                            Remove<strong> {{$customuser->name}} </strong>Agents!
+                                        </p>
                                     </div>
                                     <div class="col-md-2">
-                                        <button id="remove-user"
-                                                class="btn btn-danger float-right">Remove Now
+                                        <button id="remove-agents"
+                                                class="btn btn-danger float-right"><strong>Remove Now</strong>
                                         </button>
                                     </div>
                                 </div>
@@ -182,7 +172,8 @@
                     </div>
                 </div>
 
-                <script src="{{asset('js/user.js')}}" defer></script> {{--Must add defer to active js file--}}
+                @include('moom.modal_alert')
+                <script src="{{asset('js/edit_agents.js')}}" defer></script> {{--Must add defer to active js file--}}
             </div>
         </div>
     </div>

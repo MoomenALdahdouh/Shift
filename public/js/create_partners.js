@@ -39,7 +39,6 @@ $(function () {
                         banner = response.banner;
                         $('#image_user_uploaded img').attr('src', "{{asset(uploadcustomuser/" + banner + ")}}");
                         $('#banner_error').html(response.success);
-                        //$('#banner_error').css('color', '#002e80');
                         $('#banner_error').removeClass("text-danger");
                         $('#banner_error').addClass("text-primary");
                         $('#banner_error').css('display', 'block');
@@ -73,7 +72,7 @@ $(function () {
         country_ar_error.css('display', 'none');
         country_en_error.css('display', 'none');
 
-        $('#create-agents').click(function () {
+        $('#create-partners').click(function () {
             //const banner = $('#banner').val();
             const name_ar = $('#name_ar').val();
             const name_en = $('#name_en').val();
@@ -86,7 +85,7 @@ $(function () {
             const location = $('#location').val();
             $.ajax({
                 type: "POST",
-                url: "/customusers/store/agents",
+                url: "/customusers/store/partners",
                 data: {
                     _token: $("input[name=_token]").val(),
                     action: "create",
@@ -100,7 +99,7 @@ $(function () {
                     website_name: website_name,
                     website_url: website_url,
                     location: location,
-                    type: 0,
+                    type: 1,
                 },
                 success: function (response) {
                     if ($.isEmptyObject(response.error)) {
@@ -122,7 +121,7 @@ $(function () {
                         $('#successfully-save #message').html(response.success);
                         $('#successfully-save').modal('show');
                         /*setTimeout(function () {
-                            window.location.href = "/customusers/agents/0";
+                            window.location.href = "/customusers/partners/1";
                         }, 1000);*/
                     } else {
                         printErrorMsg(response.error);

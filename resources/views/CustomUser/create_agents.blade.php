@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-    Create Agents
+    Create Agent
 @stop
 @endsection
 @section('page-header')

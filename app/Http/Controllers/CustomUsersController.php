@@ -83,9 +83,9 @@ class CustomUsersController extends Controller
                     'country_ar' => 'required:custom_users|max:255',
                     'country_en' => 'required:custom_users|max:255',
                 ], [
-                    'banner.required' => 'Agents Banner is required!',
-                    'name_ar.required' => 'Arabic agents name is required!',
-                    'name_en.required' => 'English agents name is required!',
+                    'banner.required' => 'Agent Banner is required!',
+                    'name_ar.required' => 'Arabic agent name is required!',
+                    'name_en.required' => 'English agent name is required!',
                     'country_ar.required' => 'Arabic country name is required!',
                     'country_en.required' => 'English country name is required!',
                 ]);
@@ -115,17 +115,125 @@ class CustomUsersController extends Controller
 
     public function store_partners(Request $request)
     {
+        if ($request->ajax()) {
+            if ($request->action == "create") {
+                $validator = Validator::make($request->all(), [
+                    'banner' => 'required',
+                    'name_ar' => 'required:custom_users|max:255',
+                    'name_en' => 'required:custom_users|max:255',
+                    'country_ar' => 'required:custom_users|max:255',
+                    'country_en' => 'required:custom_users|max:255',
+                ], [
+                    'banner.required' => 'Partner Banner is required!',
+                    'name_ar.required' => 'Arabic partner name is required!',
+                    'name_en.required' => 'English partner name is required!',
+                    'country_ar.required' => 'Arabic country name is required!',
+                    'country_en.required' => 'English country name is required!',
+                ]);
 
+
+                if ($validator->passes()) {
+                    $data = new CustomUser();
+                    $banner = $request->banner;
+                    $data->banner = $banner;
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->country = ['en' => $request->country_en, 'ar' => $request->country_ar];
+                    $data->email = $request->email;
+                    $data->phone = $request->phone;
+                    $data->website_name = $request->website_name;
+                    $data->website_url = $request->website_url;
+                    $data->location = $request->location;
+                    $data->type = $request->type;
+                    $data->created_at = Carbon::now();
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    return response()->json(['success' => 'Successfully create Partner']);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
     }
 
     public function store_managers(Request $request)
     {
+        if ($request->ajax()) {
+            if ($request->action == "create") {
+                $validator = Validator::make($request->all(), [
+                    'banner' => 'required',
+                    'name_ar' => 'required:custom_users|max:255',
+                    'name_en' => 'required:custom_users|max:255',
+                    'country_ar' => 'required:custom_users|max:255',
+                    'country_en' => 'required:custom_users|max:255',
+                ], [
+                    'banner.required' => 'Partner Banner is required!',
+                    'name_ar.required' => 'Arabic partner name is required!',
+                    'name_en.required' => 'English partner name is required!',
+                    'country_ar.required' => 'Arabic country name is required!',
+                    'country_en.required' => 'English country name is required!',
+                ]);
 
+
+                if ($validator->passes()) {
+                    $data = new CustomUser();
+                    $banner = $request->banner;
+                    $data->banner = $banner;
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->country = ['en' => $request->country_en, 'ar' => $request->country_ar];
+                    $data->email = $request->email;
+                    $data->phone = $request->phone;
+                    $data->website_name = $request->website_name;
+                    $data->website_url = $request->website_url;
+                    $data->location = $request->location;
+                    $data->type = $request->type;
+                    $data->created_at = Carbon::now();
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    return response()->json(['success' => 'Successfully create Partner']);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
     }
 
     public function store_providers(Request $request)
     {
+        if ($request->ajax()) {
+            if ($request->action == "create") {
+                $validator = Validator::make($request->all(), [
+                    'banner' => 'required',
+                    'name_ar' => 'required:custom_users|max:255',
+                    'name_en' => 'required:custom_users|max:255',
+                    'country_ar' => 'required:custom_users|max:255',
+                    'country_en' => 'required:custom_users|max:255',
+                ], [
+                    'banner.required' => 'Partner Banner is required!',
+                    'name_ar.required' => 'Arabic partner name is required!',
+                    'name_en.required' => 'English partner name is required!',
+                    'country_ar.required' => 'Arabic country name is required!',
+                    'country_en.required' => 'English country name is required!',
+                ]);
 
+
+                if ($validator->passes()) {
+                    $data = new CustomUser();
+                    $banner = $request->banner;
+                    $data->banner = $banner;
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->country = ['en' => $request->country_en, 'ar' => $request->country_ar];
+                    $data->email = $request->email;
+                    $data->phone = $request->phone;
+                    $data->website_name = $request->website_name;
+                    $data->website_url = $request->website_url;
+                    $data->location = $request->location;
+                    $data->type = $request->type;
+                    $data->created_at = Carbon::now();
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    return response()->json(['success' => 'Successfully create Partner']);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
     }
 
     public function upload_image(Request $request)
@@ -172,9 +280,151 @@ class CustomUsersController extends Controller
         }
     }
 
-
-    public
     function update_agents(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            if ($request->action == "update") {
+                $validator = Validator::make($request->all(), [
+                    'banner' => 'required',
+                    'name_ar' => 'required:custom_users|max:255',
+                    'name_en' => 'required:custom_users|max:255',
+                    'country_ar' => 'required:custom_users|max:255',
+                    'country_en' => 'required:custom_users|max:255',
+                ], [
+                    'banner.required' => 'Agents Banner is required!',
+                    'name_ar.required' => 'Arabic agents name is required!',
+                    'name_en.required' => 'English agents name is required!',
+                    'country_ar.required' => 'Arabic country name is required!',
+                    'country_en.required' => 'English country name is required!',
+                ]);
+
+
+                if ($validator->passes()) {
+                    $data = CustomUser::query()->find($id);
+                    $banner = $request->banner;
+                    $data->banner = $banner;
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->country = ['en' => $request->country_en, 'ar' => $request->country_ar];
+                    $data->email = $request->email;
+                    $data->phone = $request->phone;
+                    $data->website_name = $request->website_name;
+                    $data->website_url = $request->website_url;
+                    $data->location = $request->location;
+                    $data->status = $request->status;
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    /* $update = Activity::query()->find($id)->update([
+                         'name' => $request->name,
+                         'description' => $request->description,
+                         'status' => $request->status,
+                     ]);*/
+                    if ($data)
+                        return response()->json(['success' => "Save update succeeded"]);
+                    else
+                        return response()->json(['error' => "Save update failed, Please try again"]);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
+    }
+
+    function update_partners(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            if ($request->action == "update") {
+                $validator = Validator::make($request->all(), [
+                    'banner' => 'required',
+                    'name_ar' => 'required:custom_users|max:255',
+                    'name_en' => 'required:custom_users|max:255',
+                    'country_ar' => 'required:custom_users|max:255',
+                    'country_en' => 'required:custom_users|max:255',
+                ], [
+                    'banner.required' => 'Agents Banner is required!',
+                    'name_ar.required' => 'Arabic agents name is required!',
+                    'name_en.required' => 'English agents name is required!',
+                    'country_ar.required' => 'Arabic country name is required!',
+                    'country_en.required' => 'English country name is required!',
+                ]);
+
+
+                if ($validator->passes()) {
+                    $data = CustomUser::query()->find($id);
+                    $banner = $request->banner;
+                    $data->banner = $banner;
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->country = ['en' => $request->country_en, 'ar' => $request->country_ar];
+                    $data->email = $request->email;
+                    $data->phone = $request->phone;
+                    $data->website_name = $request->website_name;
+                    $data->website_url = $request->website_url;
+                    $data->location = $request->location;
+                    $data->status = $request->status;
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    /* $update = Activity::query()->find($id)->update([
+                         'name' => $request->name,
+                         'description' => $request->description,
+                         'status' => $request->status,
+                     ]);*/
+                    if ($data)
+                        return response()->json(['success' => "Save update succeeded"]);
+                    else
+                        return response()->json(['error' => "Save update failed, Please try again"]);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
+    }
+
+    function update_managers(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            if ($request->action == "update") {
+                $validator = Validator::make($request->all(), [
+                    'banner' => 'required',
+                    'name_ar' => 'required:custom_users|max:255',
+                    'name_en' => 'required:custom_users|max:255',
+                    'country_ar' => 'required:custom_users|max:255',
+                    'country_en' => 'required:custom_users|max:255',
+                ], [
+                    'banner.required' => 'Agents Banner is required!',
+                    'name_ar.required' => 'Arabic agents name is required!',
+                    'name_en.required' => 'English agents name is required!',
+                    'country_ar.required' => 'Arabic country name is required!',
+                    'country_en.required' => 'English country name is required!',
+                ]);
+
+
+                if ($validator->passes()) {
+                    $data = CustomUser::query()->find($id);
+                    $banner = $request->banner;
+                    $data->banner = $banner;
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->country = ['en' => $request->country_en, 'ar' => $request->country_ar];
+                    $data->email = $request->email;
+                    $data->phone = $request->phone;
+                    $data->website_name = $request->website_name;
+                    $data->website_url = $request->website_url;
+                    $data->location = $request->location;
+                    $data->status = $request->status;
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    /* $update = Activity::query()->find($id)->update([
+                         'name' => $request->name,
+                         'description' => $request->description,
+                         'status' => $request->status,
+                     ]);*/
+                    if ($data)
+                        return response()->json(['success' => "Save update succeeded"]);
+                    else
+                        return response()->json(['error' => "Save update failed, Please try again"]);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
+    }
+
+    function update_providers(Request $request, $id)
     {
         if ($request->ajax()) {
             if ($request->action == "update") {

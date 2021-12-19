@@ -73,7 +73,7 @@ $(function () {
         country_ar_error.css('display', 'none');
         country_en_error.css('display', 'none');
 
-        $('#create-agents').click(function () {
+        $('#create-managers').click(function () {
             //const banner = $('#banner').val();
             const name_ar = $('#name_ar').val();
             const name_en = $('#name_en').val();
@@ -86,7 +86,7 @@ $(function () {
             const location = $('#location').val();
             $.ajax({
                 type: "POST",
-                url: "/customusers/store/agents",
+                url: "/customusers/store/managers",
                 data: {
                     _token: $("input[name=_token]").val(),
                     action: "create",
@@ -100,7 +100,7 @@ $(function () {
                     website_name: website_name,
                     website_url: website_url,
                     location: location,
-                    type: 0,
+                    type: 2,
                 },
                 success: function (response) {
                     if ($.isEmptyObject(response.error)) {
@@ -122,7 +122,7 @@ $(function () {
                         $('#successfully-save #message').html(response.success);
                         $('#successfully-save').modal('show');
                         /*setTimeout(function () {
-                            window.location.href = "/customusers/agents/0";
+                            window.location.href = "/customusers/managers/2";
                         }, 1000);*/
                     } else {
                         printErrorMsg(response.error);

@@ -194,7 +194,7 @@
                                      style=" margin: 0; padding-left:0; padding-right: 0">
                                     <div class="col-md-10">
                                         <p class="pt-2"><i class="fas fa-exclamation-triangle"></i>&nbsp;
-                                            Remove<strong> {{$customuser->name}} </strong>Agents!
+                                            Remove<strong> {{$customuser->name}} </strong>Agent!
                                         </p>
                                     </div>
                                     <div class="col-md-2">

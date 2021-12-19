@@ -31,156 +31,170 @@
                 <div class="card-body">
                     <div class="mt-3">
                         <div class="card-header alert alert-light">
-                            <strong><i class="far fa-caret-square-right"></i> Hall Details</strong>
-                            <div class="mt-4">
-                                <ul class="ul-project" style="list-style-type: none; margin: 0; padding: 0">
-                                    <li>
-                                        <input type="hidden" id="user-id" name="user-id" value="{{$customuser->id}}">
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div>
-                                            <div id="image_user_uploaded">
-                                                <!-- uploadcustomuser/1639865270.jpg      -->
-                                                <img class="user-image" width="70"
-                                                     src="{{asset("uploadcustomuser/$customuser->banner")}}">
+                            <div class="card-header alert alert-light">
+                                <input id="hall_id" type="hidden" value="{{$hall->id}}">
+                                <input id="hall_type_hidden" type="hidden" value="{{$hall->type}}">
+                                <strong><i class="far fa-caret-square-right"></i> Hall Details</strong>
+                                <div class="mt-4">
+                                    <ul class="ul-project" style="list-style-type: none; margin: 0; padding: 0">
+                                        <li>
+                                            <input type="hidden" id="user-id" name="user-id">
+                                        </li>
+                                        <br>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <h6><strong class="text-danger">*</strong> Name (Arabic)</h6>
+                                                    </div>
+                                                    <input class="form-control" id="name_ar" type="text"
+                                                           value="{{@$hall->getTranslation('name', 'ar')}}">
+                                                    <p id="name_ar_error" class="text-danger"
+                                                       style="display: none"></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <h6><strong class="text-danger">*</strong> Name (English)</h6>
+                                                    </div>
+                                                    <input class="form-control" id="name_en" type="text"
+                                                           value="{{@$hall->getTranslation('name', 'en')}}">
+                                                    <p id="name_en_error" class="text-danger"
+                                                       style="display: none"></p>
+                                                </div>
                                             </div>
-                                            <br>
-                                            <p>hall banner ratio 2:1 (.jpeg, .png, .jpg)</p>
-                                            <form class="hidden-image-upload">
-                                                {{csrf_field()}}
-                                                <input name="_token" type="hidden"
-                                                       value="5lgtt8AgbeF3lprptj8HNXVPceRhoJbqBeErBI1k">
-                                                <input id="old_banner" name="old_banner" type="hidden"
-                                                       value="{{$customuser->banner}}">
-                                                <input class="" id="banner" name="banner" type="file"
-                                                       accept="image/png, image/jpeg, image/jpg">
-                                                <p id="banner_error" class="text-danger"
+                                        </li>
+                                        <br>
+                                        <li>
+                                            <div>
+                                                <h6>
+                                                    <i class="las la-hand-pointer text-primary"></i>Hall type
+                                                </h6>
+                                                <div class=""
+                                                     style=" margin: 0">
+                                                    <div class="form-group col-md-6"
+                                                         style=" margin: 0; padding: 0">
+                                                        <select class="alert alert-secondary " id="hall_type">
+                                                            <option value="0">External Hall</option>
+                                                            <option value="1">Internal Hall</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <p id="type_error" class="text-danger"
                                                    style="display: none"></p>
-                                            </form>
-
+                                            </div>
+                                        </li>
+                                        <div class="data-depend-type">
+                                            <div id="data-external-type">
+                                                <ul class="list-group-item" style="list-style-type: none">
+                                                    <li>
+                                                        <div>
+                                                            <strong>
+                                                                <i class="las la-link text-primary"></i><strong
+                                                                    class="text-danger">*</strong>Link
+                                                            </strong>
+                                                            <div class="input-group rounded-md  ">
+                                                            <span class="input-group-text"><i
+                                                                    class="fas fa-link"></i></span>
+                                                                <input
+                                                                    class="form-control col-md-12"
+                                                                    id="url" name="url" type="url"
+                                                                    placeholder="URL (required)"
+                                                                    value="{{@$hall->url}}">
+                                                            </div>
+                                                            <p id="url_error" class="text-danger"
+                                                               style="display: none"></p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div id="data-internal-type" class="d-none">
+                                                <ul class="list-group-item" style="list-style-type: none">
+                                                    <li>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div>
+                                                                    <h6><strong class="text-danger">*</strong>
+                                                                        Description
+                                                                        (Arabic)
+                                                                    </h6>
+                                                                </div>
+                                                                <textarea rows="3" class="form-control"
+                                                                          id="description_ar"
+                                                                          type="text">{{@$hall->getTranslation('description', 'ar')}}</textarea>
+                                                                <p id="description_ar_error" class="text-danger"
+                                                                   style="display: none"></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div>
+                                                                    <h6><strong class="text-danger">*</strong>
+                                                                        Description
+                                                                        (English)
+                                                                    </h6>
+                                                                </div>
+                                                                <textarea rows="3" class="form-control"
+                                                                          id="description_en"
+                                                                          type="text">{{@$hall->getTranslation('description', 'en')}}</textarea>
+                                                                <p id="description_en_error" class="text-danger"
+                                                                   style="display: none"></p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <h6>Hall gallery widget Name(English)</h6>
+                                                                <input class="form-control" id="widget_name_en"
+                                                                       type="text"
+                                                                       value="{{@$hall->widget->getTranslation('title', 'en')}}">
+                                                                <p id="widget_name_en_error" class="text-danger"
+                                                                   style="display: none"></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h6>Hall gallery widget Name(Arabic)</h6>
+                                                                <input class="form-control" id="widget_name_ar"
+                                                                       type="text"
+                                                                       value="{{@$hall->widget->getTranslation('title', 'ar')}}">
+                                                                <p id="widget_name_ar_error" class="text-danger"
+                                                                   style="display: none"></p>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <!-- Page Value-->
+                                                        <div class="form-group">
+                                                            <h6>Hall gallery widget</h6>
+                                                            <textarea class="form-control"
+                                                                      id="widget_value"
+                                                                      rows="10">{{@$hall->widget->value}}</textarea>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <br>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div>
-                                                    <h6><strong class="text-danger">*</strong> Name Arabic</h6>
-                                                </div>
-                                                <input class="form-control" id="name_ar" type="text"
-                                                       value="{{$customuser->name}}">
-                                                <p id="name_ar_error" class="text-danger"
-                                                   style="display: none"></p>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div>
-                                                    <h6><strong class="text-danger">*</strong> Name English</h6>
-                                                </div>
-                                                <input class="form-control" id="name_en" type="text"
-                                                       value="{{$customuser->name}}">
-                                                <p id="name_en_error" class="text-danger"
-                                                   style="display: none"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div>
-                                                    <h6><strong class="text-danger">*</strong> Country Arabic</h6>
-                                                </div>
-                                                <input class="form-control" id="country_ar" type="text"
-                                                       value="{{$customuser->country}}">
-                                                <p id="country_ar_error" class="text-danger"
-                                                   style="display: none"></p>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div>
-                                                    <h6><strong class="text-danger">*</strong> Country English</h6>
-                                                </div>
-                                                <input class="form-control" id="country_en" type="text"
-                                                       value="{{$customuser->country}}">
-                                                <p id="country_en_error" class="text-danger"
-                                                   style="display: none"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div>
+                                        <li>
                                             <div>
-                                                <h6>Email (optional)</h6>
+                                                <h4>
+                                                    <i class="las la-toggle-off text-primary"></i>&nbsp;Status
+                                                </h4>
                                             </div>
-                                            <input class="form-control" id="email" type="email"
-                                                   value="{{$customuser->email}}">
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div>
-                                            <div>
-                                                <h6>Phone (optional)</h6>
+                                            <div class="form-check form-switch" style="padding: 0;margin: 0">
+                                                <input id="status" class="toggle-class" type="checkbox"
+                                                       data-onstyle="success"
+                                                       data-offstyle="danger" data-toggle="toggle" data-on="Active"
+                                                       data-off="Inactive" data-size="xs"
+                                                    {{$hall->status ? 'checked' : ''}}>
                                             </div>
-                                            <input class="form-control" id="phone" type="text"
-                                                   value="{{$customuser->phone}}">
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div>
-                                            <div>
-                                                <h6>Website name (optional)</h6>
-                                            </div>
-                                            <input class="form-control" id="website_name" type="text"
-                                                   value="{{$customuser->website_name}}">
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div>
-                                            <div>
-                                                <h6>Website URL (optional)</h6>
-                                            </div>
-                                            <input class="form-control" id="website_url" type="url"
-                                                   value="{{$customuser->website_url}}">
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div>
-                                            <div>
-                                                <h6>Location (optional)</h6>
-                                            </div>
-                                            <input class="form-control" id="location" type="text"
-                                                   value="{{$customuser->location}}">
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <li>
-                                        <div>
-                                            <h4>
-                                                <i class="las la-toggle-off text-primary"></i>&nbsp;Status
-                                            </h4>
-                                        </div>
-                                        <div class="form-check form-switch" style="padding: 0;margin: 0">
-                                            <input id="status" class="toggle-class" type="checkbox"
-                                                   data-onstyle="success"
-                                                   data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                                   data-off="Inactive" data-size="xs"
-                                                {{$customuser->status ? 'checked' : ''}}>
-                                        </div>
-                                    </li>
-                                    <br>
-                                    <br>
-                                    <li>
-                                        <button id="update-halls" class="btn btn-primary float-right"><i
-                                                class="lar la-save"></i> Save
-                                        </button>
-                                    </li>
-                                </ul>
+                                        </li>
+                                        <br>
+                                        <br>
+                                        <li>
+                                            <button id="update-halls" class="btn btn-primary float-right"><i
+                                                    class="lar la-save"></i> Update
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,7 +208,7 @@
                                      style=" margin: 0; padding-left:0; padding-right: 0">
                                     <div class="col-md-10">
                                         <p class="pt-2"><i class="fas fa-exclamation-triangle"></i>&nbsp;
-                                            Remove<strong> {{$customuser->name}} </strong>Hall!
+                                            Remove<strong> {{@$hall->name}} </strong>Hall!
                                         </p>
                                     </div>
                                     <div class="col-md-2">

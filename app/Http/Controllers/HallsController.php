@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomUser;
 use App\Models\Hall;
+use App\Models\widgetsTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
 class HallsController extends Controller
@@ -56,59 +59,161 @@ class HallsController extends Controller
         return view('Hall.create_halls');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            if ($request->action == "create") {
+                $validator = null;
+                $type = (int)$request->type;
+                $widget_fk_id = "";
+                if ($type == 0) {
+                    $validator = Validator::make($request->all(), [
+                        'name_ar' => 'required:halls|max:255',
+                        'name_en' => 'required:halls|max:255',
+                        'hall_url' => 'required|url',
+                    ], [
+                        'name_ar.required' => 'Arabic hall name is required!',
+                        'name_en.required' => 'English hall name is required!',
+                        'hall_url.required' => 'URL is required!',
+                        'hall_url.url' => 'Enter valid URL!',
+                    ]);
+                } else {
+                    $validator = Validator::make($request->all(), [
+                        'name_ar' => 'required:halls|max:255',
+                        'name_en' => 'required:halls|max:255',
+                        'description_ar' => 'required',
+                        'description_en' => 'required',
+                    ], [
+                        'name_ar.required' => 'Arabic hall name is required!',
+                        'name_en.required' => 'English hall name is required!',
+                        'description_ar.required' => 'Arabic hall description is required!',
+                        'description_en.required' => 'English hall description is required!',
+                    ]);
+                }
+
+                if ($validator->passes()) {
+                    $data = new Hall();
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->title = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    if ($type == 0) {
+                        $data->url = $request->hall_url;
+                    } else {
+                        $data->description = ['en' => $request->description_en, 'ar' => $request->description_ar];
+                        /*Crete widget*/
+                        /*$wedget = widgetsTable::query()->create([
+                            'title' => ['en' => $request->widget_name_en, 'ar' => $request->widget_name_ar],
+                            'value' => $request->widget_value
+                        ]);*/
+                        $wedget = new widgetsTable();
+                        $wedget->title = ['en' => $request->widget_name_en, 'ar' => $request->widget_name_ar];
+                        $wedget->value = $request->widget_value;
+                        $wedget->value_ar = $request->widget_value;
+                        $wedget->value_en = $request->widget_value;
+                        $wedget->created_at = Carbon::now();
+                        $wedget->updated_at = Carbon::now();
+                        $wedget->save();
+                        $widget_fk_id = $wedget->id;
+                        $data->widget_fk_id = $widget_fk_id;
+                    }
+                    $data->type = $type;
+                    $data->created_at = Carbon::now();
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    return response()->json(['success' => 'Successfully create Agents']);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $hall = Hall::query()->find($id);
+        return view('Hall.edit_halls', compact('hall'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            if ($request->action == "update") {
+                $data = Hall::query()->find($id);
+                $validator = null;
+                $type = (int)$request->type;
+                $status = (int)$request->status;
+                $wedget = widgetsTable::query()->find($data->widget->id);
+                if ($type == 0) {
+                    $validator = Validator::make($request->all(), [
+                        'name_ar' => 'required:halls|max:255',
+                        'name_en' => 'required:halls|max:255',
+                        'hall_url' => 'required|url',
+                    ], [
+                        'name_ar.required' => 'Arabic hall name is required!',
+                        'name_en.required' => 'English hall name is required!',
+                        'hall_url.required' => 'URL is required!',
+                        'hall_url.url' => 'Enter valid URL!',
+                    ]);
+                } else {
+                    $validator = Validator::make($request->all(), [
+                        'name_ar' => 'required:halls|max:255',
+                        'name_en' => 'required:halls|max:255',
+                        'description_ar' => 'required',
+                        'description_en' => 'required',
+                    ], [
+                        'name_ar.required' => 'Arabic hall name is required!',
+                        'name_en.required' => 'English hall name is required!',
+                        'description_ar.required' => 'Arabic hall description is required!',
+                        'description_en.required' => 'English hall description is required!',
+                    ]);
+                }
+
+                if ($validator->passes()) {
+                    $data = new Hall();
+                    $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    $data->title = ['en' => $request->name_en, 'ar' => $request->name_ar];
+                    if ($type == 0) {
+                        $data->url = $request->hall_url;
+                        $data->description = ['en' => "", 'ar' => ""];
+                        $wedget->title = ['en' => "", 'ar' => ""];
+                        $wedget->value = "";
+                        $wedget->value_ar = "";
+                        $wedget->value_en = "";
+                        $wedget->updated_at = Carbon::now();
+                        $wedget->save();
+                    } else {
+                        $data->url = "";
+                        $data->description = ['en' => $request->description_en, 'ar' => $request->description_ar];
+                        $wedget->title = ['en' => $request->widget_name_en, 'ar' => $request->widget_name_ar];
+                        $wedget->value = $request->widget_value;
+                        $wedget->value_ar = $request->widget_value;
+                        $wedget->value_en = $request->widget_value;
+                        $wedget->updated_at = Carbon::now();
+                        $wedget->save();
+                    }
+                    $data->type = $type;
+                    $data->status = $status;
+                    $data->updated_at = Carbon::now();
+                    $data->save();
+                    return response()->json(['success' => 'Successfully create Agents']);
+                }
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $hall = Hall::query()->find($id);
+            $hall->widget->delete();
+            if ($hall->delete()) {
+                return response()->json(['success' => 'Remove succeeded']);
+            }
+            return response()->json(['error' => 'Remove failed!, Please try again']);
+        }
     }
 }

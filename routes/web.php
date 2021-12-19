@@ -79,7 +79,7 @@ Route::group(
         Route::post('/store', [HallsController::class, 'store'])->name('halls.store');
         Route::get('/edit/{id}', [HallsController::class, 'edit'])->name('halls.edit');
         Route::post('/update/{id}', [HallsController::class, 'update'])->name('halls.update');
-        Route::delete('/delete/{id}', [HallsController::class, 'destroy'])->name('halls.update');
+        Route::delete('/delete/{id}', [HallsController::class, 'destroy'])->name('halls.destroy');
     });
 
     Route::prefix('customusers')->group(function () {

@@ -41,7 +41,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div>
-                                                    <h6><strong class="text-danger">*</strong> Name Arabic</h6>
+                                                    <h6><strong class="text-danger">*</strong> Name (Arabic)</h6>
                                                 </div>
                                                 <input class="form-control" id="name_ar" type="text">
                                                 <p id="name_ar_error" class="text-danger"
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div>
-                                                    <h6><strong class="text-danger">*</strong> Name English</h6>
+                                                    <h6><strong class="text-danger">*</strong> Name (English)</h6>
                                                 </div>
                                                 <input class="form-control" id="name_en" type="text">
                                                 <p id="name_en_error" class="text-danger"
@@ -131,10 +131,16 @@
                                                 <br>
                                                 <li>
                                                     <div class="row">
-                                                        <div class="col">
-                                                            <h6>Hall gallery widget Name(EN)</h6>
+                                                        <div class="col-md-6">
+                                                            <h6>Hall gallery widget Name(English)</h6>
                                                             <input class="form-control" id="widget_name_en" type="text">
                                                             <p id="widget_name_en_error" class="text-danger"
+                                                               style="display: none"></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h6>Hall gallery widget Name(Arabic)</h6>
+                                                            <input class="form-control" id="widget_name_ar" type="text">
+                                                            <p id="widget_name_ar_error" class="text-danger"
                                                                style="display: none"></p>
                                                         </div>
                                                     </div>
@@ -142,8 +148,8 @@
                                                     <!-- Page Value-->
                                                     <div class="form-group">
                                                         <h6>Hall gallery widget</h6>
-                                                        <textarea  class="form-control"
-                                                                  id="exampleFormControlTextarea1"
+                                                        <textarea class="form-control"
+                                                                  id="widget_value"
                                                                   rows="10"></textarea>
                                                     </div>
                                                 </li>

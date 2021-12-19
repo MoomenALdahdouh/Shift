@@ -1,175 +1,163 @@
-/*start Project Setting and edit*/
 $(function () {
     let status = $('.toggle-class').prop('checked') === true ? 1 : 0;
-    const user_id = document.getElementById('user-id').value;
-    let banner = $('#old_banner').val();
-    console.log(banner);
+    var hall_id = $('#hall_id').val();
+    var hall_type = $('#hall_type_hidden').val();
+    let data_external_type = $('#data-external-type');
+    let data_internal_type = $('#data-internal-type');
     $(document).ready(function () {
-        /*Project settings*/
-        $('#update-halls').click(function () {
-            edit_user();
-        });
+        $('#hall_type').val(hall_type);
+        switch (hall_type) {
+            case "0":
+                data_internal_type.hide();
+                data_external_type.attr('style', 'display:block !important');
+                break;
+            case "1":
+                data_internal_type.attr('style', 'display:block !important');
+                data_external_type.hide();
+                break;
+        }
 
         $('.toggle-class').change(function () {
             status = $(this).prop('checked') === true ? 1 : 0;
         })
 
         $('#remove-halls').click(function () {
-            delete_user()
+            delete_hall()
         });
 
-        upload_image();
-    })
+        edit_hall();
+        selectEventType();
+    });
 
-    function upload_image() {
-        $('#banner').on('change', function (ev) {
-            var filedata = ev.target.files[0];
-            if (filedata) {
-                //---image preview
-                var reader = new FileReader();
-                reader.onload = function (ev) {
-                    $('#user-image').attr('src', ev.target.result);
-                };
-                reader.readAsDataURL(this.files[0]);
-                /// preview end
-                //upload
-                let bannerUpload = new FormData();
-                bannerUpload.append('file', this.files[0]);
-                console.log(bannerUpload);
-                $.ajax({
-                    url: '/customusers/upload/image',
-                    data: bannerUpload,
-                    headers: {
-                        'X-CSRF-Token': $('form.hidden-image-upload [name="_token"]').val()
-                    },
-                    dataType: 'json',
-                    async: false,
-                    type: 'post',
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        console.log("success");
-                        banner = response.banner;
-                        $('#image_user_uploaded img').attr('src', "{{asset(uploadcustomuser/" + banner + ")}}");
-                        $('#banner_error').html(response.success);
-                        $('#banner_error').css('color', '#002e80');
-                        $('#banner_error').css('display', 'block');
-                    }
-                });
-            } else {
-                console.log("failed");
-                printErrorMsg(response.error);
-            }
-
-            function printErrorMsg(msg) {
-                if (msg['banner']) {
-                    $('#banner_error').html(msg['banner']);
-                    $('#banner_error').css('display', 'block');
-                } else {
-                    $('#banner_error').css('display', 'none');
-                }
+    function selectEventType() {
+        $('#hall_type').click(function () {
+            hall_type = $('#hall_type').val().toString();
+            switch (hall_type) {
+                case "0":
+                    data_internal_type.hide();
+                    data_external_type.attr('style', 'display:block !important');
+                    break;
+                case "1":
+                    data_internal_type.attr('style', 'display:block !important');
+                    data_external_type.hide();
+                    break;
             }
         });
     }
 
-    function edit_user() {
-        const id = $('#user-id').val();
-        const name_ar = $('#name_ar').val();
-        const name_en = $('#name_en').val();
-        const country_ar = $('#country_ar').val();
-        const country_en = $('#country_en').val();
-        const email = $('#email').val();
-        const phone = $('#phone').val();
-        const website_name = $('#website_name').val();
-        const website_url = $('#website_url').val();
-        const location = $('#location').val();
-        console.log(name_ar, name_en, country_ar, country_en, email, phone, website_name, website_url, location);
-        const banner_error = $('#banner_error');
+    function edit_hall() {
+        let hall_url = "";
+        let description_ar = "";
+        let description_en = "";
+        let widget_name_en = "";
+        let widget_name_ar = "";
+        let widget_value = "";
+        let hall_url_input = $('#url');
+        let description_ar_input = $('#description_ar');
+        let description_en_input = $('#description_en');
+        let widget_name_en_input = $('#widget_name_en');
+        let widget_name_ar_input = $('#widget_name_ar');
+        let widget_value_input = $('#widget_value');
+
         const name_ar_error = $('#name_ar_error');
         const name_en_error = $('#name_en_error');
-        const country_ar_error = $('#country_ar_error');
-        const country_en_error = $('#country_en_error');
-        banner_error.css('display', 'none');
+        const url_error = $('#url_error');
+        const description_ar_error = $('#description_ar_error');
+        const description_en_error = $('#description_en_error');
         name_ar_error.css('display', 'none');
         name_en_error.css('display', 'none');
-        country_ar_error.css('display', 'none');
-        country_en_error.css('display', 'none');
-        $.ajax({
-            method: "POST",
-            url: "/customusers/update/halls/" + id,
-            data: {
-                _token: $("input[name=_token]").val(),
-                action: "update",
-                id: id,
-                banner: banner,
-                name_ar: name_ar,
-                name_en: name_en,
-                country_ar: country_ar,
-                country_en: country_en,
-                email: email,
-                phone: phone,
-                website_name: website_name,
-                website_url: website_url,
-                location: location,
-                status: status,
-            },
-            success: function (response) {
-                if ($.isEmptyObject(response.error)) {
-                    banner_error.css('display', 'none');
-                    name_ar_error.css('display', 'none');
-                    name_en_error.css('display', 'none');
-                    country_ar_error.css('display', 'none');
-                    country_en_error.css('display', 'none');
-                    $('#successfully-save #message').html(response.success);
-                    $('#successfully-save').modal('show');
-                    /*setTimeout(function () {
-                        window.location.href = "/customusers/halls/0";
-                    }, 1000);*/
-                } else {
-                    printErrorMsg(response.error);
-                }
+        url_error.css('display', 'none');
+        description_ar_error.css('display', 'none');
+        description_en_error.css('display', 'none');
 
-                /*{{--//TODO:: -- MOOMEN S. ALDAH/DOUH -- 12/10/2021--}}*/
-                function printErrorMsg(msg) {
-                    if (msg['banner']) {
-                        banner_error.html(msg['banner']);
-                        banner_error.css('display', 'block');
-                    } else {
-                        banner_error.css('display', 'none');
-                    }
-                    if (msg['name_ar']) {
-                        name_ar_error.html(msg['name_ar']);
-                        name_ar_error.css('display', 'block');
-                    } else {
+        $('#update-halls').click(function () {
+            let name_ar = $('#name_ar').val();
+            let name_en = $('#name_en').val();
+            if (hall_type === 0) {//Internal
+                hall_url = hall_url_input.val();
+            } else { //External
+                description_ar = description_ar_input.val();
+                description_en = description_en_input.val();
+                widget_name_en = widget_name_en_input.val();
+                widget_name_ar = widget_name_ar_input.val();
+                widget_value = widget_value_input.val();
+            }
+            console.log(status, name_ar, name_en, hall_url, description_ar, description_en, widget_name_en, widget_name_ar, widget_value, hall_type, hall_id);
+            $.ajax({
+                type: "POST",
+                url: "/halls/update/" + hall_id,
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    action: "update",
+                    name_ar: name_ar,
+                    name_en: name_en,
+                    hall_url: hall_url,
+                    description_ar: description_ar,
+                    description_en: description_en,
+                    widget_name_en: widget_name_en,
+                    widget_name_ar: widget_name_ar,
+                    widget_value: widget_value,
+                    status: status,
+                    type: hall_type,
+                },
+                success: function (response) {
+                    if ($.isEmptyObject(response.error)) {
                         name_ar_error.css('display', 'none');
-                    }
-                    if (msg['name_en']) {
-                        name_en_error.html(msg['name_en']);
-                        name_en_error.css('display', 'block');
-                    } else {
                         name_en_error.css('display', 'none');
-                    }
-                    if (msg['country_ar']) {
-                        country_ar_error.html(msg['country_ar']);
-                        country_ar_error.css('display', 'block');
+                        url_error.css('display', 'none');
+                        description_ar_error.css('display', 'none');
+                        description_en_error.css('display', 'none');
+                        $('#successfully-save #message').html(response.success);
+                        $('#successfully-save').modal('show');
+                        /*setTimeout(function () {
+                            window.location.href = "/halls";
+                        }, 1000);*/
                     } else {
-                        country_ar_error.css('display', 'none');
+                        printErrorMsg(response.error);
                     }
-                    if (msg['country_en']) {
-                        country_en_error.html(msg['country_en']);
-                        country_en_error.css('display', 'block');
-                    } else {
-                        country_en_error.css('display', 'none');
-                    }
+                }
+            });
+
+            /*{{--//TODO:: -- MOOMEN S. ALDAH/DOUH -- 12/19/2021--}}*/
+            function printErrorMsg(msg) {
+                if (msg['name_ar']) {
+                    name_ar_error.html(msg['name_ar']);
+                    name_ar_error.css('display', 'block');
+                } else {
+                    name_ar_error.css('display', 'none');
+                }
+                if (msg['name_en']) {
+                    name_en_error.html(msg['name_en']);
+                    name_en_error.css('display', 'block');
+                } else {
+                    name_en_error.css('display', 'none');
+                }
+                if (msg['hall_url']) {
+                    url_error.html(msg['hall_url']);
+                    url_error.css('display', 'block');
+                } else {
+                    url_error.css('display', 'none');
+                }
+                if (msg['description_ar']) {
+                    description_ar_error.html(msg['description_ar']);
+                    description_ar_error.css('display', 'block');
+                } else {
+                    description_ar_error.css('display', 'none');
+                }
+                if (msg['description_en']) {
+                    description_en_error.html(msg['description_en']);
+                    description_en_error.css('display', 'block');
+                } else {
+                    description_en_error.css('display', 'none');
                 }
             }
         });
     }
 
-    function delete_user() {
+    function delete_hall() {
         $.ajax({
             type: "DELETE",
-            url: "/customusers/delete/" + user_id,
+            url: "/halls/delete/" + hall_id,
             data: {
                 _token: $("input[name=_token]").val()
             },
@@ -178,7 +166,7 @@ $(function () {
                     $('#successfully-remove').modal('show');
                     $('#successfully-remove #message').html(response['success']);
                     setTimeout(function () {
-                        location.href = "/customusers/halls/0";
+                        location.href = "/halls";
                     }, 1000);
                     //table.DataTable().ajax.reload();
                 } else if (response['error']) {

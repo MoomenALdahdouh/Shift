@@ -145,6 +145,9 @@ class HallsController extends Controller
                 $validator = null;
                 $type = (int)$request->type;
                 $status = (int)$request->status;
+                $url = "";
+                $description = "";
+
                 $wedget = widgetsTable::query()->find($data->widget->id);
                 if ($type == 0) {
                     $validator = Validator::make($request->all(), [
@@ -172,7 +175,6 @@ class HallsController extends Controller
                 }
 
                 if ($validator->passes()) {
-                    $data = new Hall();
                     $data->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
                     $data->title = ['en' => $request->name_en, 'ar' => $request->name_ar];
                     if ($type == 0) {

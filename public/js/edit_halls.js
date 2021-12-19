@@ -73,7 +73,7 @@ $(function () {
         $('#update-halls').click(function () {
             let name_ar = $('#name_ar').val();
             let name_en = $('#name_en').val();
-            if (hall_type === 0) {//Internal
+            if (hall_type == 0) {//Internal
                 hall_url = hall_url_input.val();
             } else { //External
                 description_ar = description_ar_input.val();

@@ -21,15 +21,15 @@ class CustomUsersController extends Controller
         $custom_users = CustomUser::query()->where('type', $user_type);
         if ($request->ajax()) {
             return DataTables::of($custom_users)
-                ->addColumn('banner', function ($projects) {
-                    $banner = asset('uploadcustomuser/' . $projects->banner);
+                ->addColumn('banner', function ($custom_users) {
+                    $banner = asset('uploadcustomuser/' . $custom_users->banner);
                     return '<img style="width: 60px; height: 30px;" src="' . $banner . '">';//object-position: center; object-fit: none;
                 })
-                ->addColumn('name', function ($projects) {
-                    return '<p>' . $projects->name . '</p>';
+                ->addColumn('name', function ($custom_users) {
+                    return '<p>' . $custom_users->name . '</p>';
                 })
-                ->addColumn('created_at', function ($projects) {
-                    return '<p>' . \Carbon\Carbon::parse($projects->created_at)->diffForHumans() . '</p>';
+                ->addColumn('created_at', function ($custom_users) {
+                    return '<p>' . \Carbon\Carbon::parse($custom_users->created_at)->diffForHumans() . '</p>';
                 })
                 ->addColumn('status', function ($custom_users) {
                     $status = '';

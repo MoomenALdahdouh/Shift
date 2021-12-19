@@ -38,35 +38,41 @@
                     <!-- menu item todo-->
                     <!--TODO::START MOOEMN ALDAH*DOUH ROUTE -->
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ url('/' . $page='events') }}"><i class="far fa-calendar-alt"></i>Events</a>
+                        <a class="nav-link" aria-current="page" href="{{ url('/' . $page='events') }}"><i
+                                class="far fa-calendar-alt"></i>Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/' . $page='halls') }}"><i class="fas fa-hotel"></i>Halls</a>
+                        <a class="nav-link" href="{{ url('/' . $page='halls') }}"><i
+                                class="fas fa-place-of-worship"></i>Halls</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/' . $page='customusers/agents/0') }}"><i class="far fa-user"></i>Agents</a>
+                        <a class="nav-link" href="{{ url('/' . $page='customusers/agents/0') }}"><i
+                                class="far fa-user"></i>Agents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/' . $page='customusers/partners/1') }}"><i class="far fa-handshake"></i>Partners</a>
+                        <a class="nav-link" href="{{ url('/' . $page='customusers/partners/1') }}"><i
+                                class="far fa-handshake"></i>Partners</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/' . $page='customusers/managers/2') }}"><i class="fas fa-users-cog"></i>Managers</a>
+                        <a class="nav-link" href="{{ url('/' . $page='customusers/managers/2') }}"><i
+                                class="fas fa-users-cog"></i>Managers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/' . $page='customusers/providers/3') }}"><i class="fas fa-user-astronaut"></i>Providers</a>
+                        <a class="nav-link" href="{{ url('/' . $page='customusers/providers/3') }}"><i
+                                class="fas fa-user-astronaut"></i>Providers</a>
                     </li>
-<!--                    <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#custom_users">
-                            <div class="pull-left"><i class="ti-palette"></i><span
-                                    class="right-nav-text">Custom Users</span></div>
-                            <div class="pull-right"><i class="ti-plus"></i></div>
-                            <div class="clearfix"></div>
-                        </a>
-                        <ul id="custom_users" class="collapse" data-parent="#sidebarnav">
+                    <!--                    <li>
+                                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#custom_users">
+                                                <div class="pull-left"><i class="ti-palette"></i><span
+                                                        class="right-nav-text">Custom Users</span></div>
+                                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                                <div class="clearfix"></div>
+                                            </a>
+                                            <ul id="custom_users" class="collapse" data-parent="#sidebarnav">
 
-                        </ul>
+                                            </ul>
 
-                    </li>-->
+                                        </li>-->
                     <!--TODO::END MOOMEN ROUT-->
                     <li>
                         <a href="{{ url('/' . $page='slider') }}"><i class="ti-menu-alt"></i><span

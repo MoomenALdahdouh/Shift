@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hall extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+    protected $table = "halls";
+    protected $guarded = [];
+    public $timestamps = false;
 }

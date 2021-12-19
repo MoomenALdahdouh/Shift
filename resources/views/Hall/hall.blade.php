@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-    {{--{{--//TODO:: MO//OMEN S. ALD//AHDOUH 12/15/2021--}}
+    {{--{{--//TODO:: MO//OMEN S. ALD//AHDOUH 12/18//202/1--}}
 @section('title')
     Halls
 @stop
@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-md-12 mb-30">
             <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
-            <button id="create_event" class="btn btn-primary mb-3">
+            <button id="create_halls" class="btn btn-primary mb-3">
                 Create Halls
             </button>
             <div class="card card-statistics">
@@ -37,25 +37,27 @@
                                style="text-align: center">
                             <thead>
                             <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>Sl No</th>
+                                <th>Name</th>
+                                <th>Gallery</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Url</th>
+                                <th>Type</th>
+                                <th>Created At</th>
+                                <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                         </table>
                     </div>
                 </div>
-                <script src="{{ asset('js/halls.js') }}" defer></script>
             </div>
         </div>
     </div>
     <!-- row closed -->
 @endsection
 @section('js')
-
+    <script src="{{ asset('js/halls.js') }}" defer></script>
 @endsection
-{{--{{--//TODO:: MOOM/EN S. ALD//*AHDOUH 12/15/2021--}}
+{{--{{--//TODO:: MOOM/EN S. ALD//*AHDOUH 12///18/20-21--}}

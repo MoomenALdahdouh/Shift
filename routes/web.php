@@ -75,6 +75,11 @@ Route::group(
 
     Route::prefix('halls')->group(function () {
         Route::get('/', [HallsController::class, 'index'])->name('halls');
+        Route::get('/create', [HallsController::class, 'create'])->name('halls.create');
+        Route::post('/store', [HallsController::class, 'store'])->name('halls.store');
+        Route::get('/edit/{id}', [HallsController::class, 'edit'])->name('halls.edit');
+        Route::post('/update/{id}', [HallsController::class, 'update'])->name('halls.update');
+        Route::delete('/delete/{id}', [HallsController::class, 'destroy'])->name('halls.update');
     });
 
     Route::prefix('customusers')->group(function () {
@@ -87,7 +92,7 @@ Route::group(
         Route::post('/update/partners/{id}', [CustomUsersController::class, 'update_partners'])->name('activities.update_partners');
         Route::post('/update/managers/{id}', [CustomUsersController::class, 'update_managers'])->name('activities.update_managers');
         Route::post('/update/providers/{id}', [CustomUsersController::class, 'update_providers'])->name('activities.update_providers');
-        Route::delete('/delete/{id}', [CustomUsersController::class, 'destroy'])->name('activities.update');
+        Route::delete('/delete/{id}', [CustomUsersController::class, 'destroy'])->name('activities.delete');
         Route::get('/create/agents', [CustomUsersController::class, 'create_agents'])->name('events.create.agents');
         Route::get('/create/partners', [CustomUsersController::class, 'create_partners'])->name('events.create.partners');
         Route::get('/create/managers', [CustomUsersController::class, 'create_managers'])->name('events.create.managers');
